@@ -1,0 +1,1793 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Servicio técnico</title>
+<style>
+:root{--bg:#f6f7f9;--surface:#fff;--surface-2:#f0f3f8;--text:#1d2430;--muted:#6a7485;--line:#dfe3ea;--accent:#2457d6;--accent-text:#fff;--hover:#eef2fb;--good:#1e8e3e;--bad:#c0392b;--warn:#b26a00;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#12151b;--surface:#1b2029;--surface-2:#222936;--text:#e7eaf0;--muted:#97a1b3;--line:#2c3340;--accent:#6b93ff;--accent-text:#0b1020;--hover:#232a38;--good:#4cd97b;--bad:#ff6b6b;--warn:#ffbe55}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#12151b;--surface:#1b2029;--surface-2:#222936;--text:#e7eaf0;--muted:#97a1b3;--line:#2c3340;--accent:#6b93ff;--accent-text:#0b1020;--hover:#232a38;--good:#4cd97b;--bad:#ff6b6b;--warn:#ffbe55}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1240px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.4rem;margin:0 0 4px}
+h2{font-size:1.05rem;margin:22px 0 8px}
+.sub{color:var(--muted);margin:0 0 18px}
+.drop{display:block;border:2px dashed var(--line);background:var(--surface);border-radius:12px;padding:28px 16px;text-align:center;cursor:pointer;transition:.15s;margin-top:10px}
+.drop.over{border-color:var(--accent);background:var(--hover)}
+.drop strong{display:block;margin-bottom:4px}
+.drop span{color:var(--muted);font-size:.9rem}
+button,select,input[type=search],input[type=number],input[type=text],input[type=url],input[type=time],input[type=date],textarea{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+button{cursor:pointer}
+button:hover:not(:disabled){background:var(--hover)}
+button.primary{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+button.primary:hover:not(:disabled){filter:brightness(1.06);background:var(--accent)}
+button.active-pill{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+button:disabled{opacity:.55;cursor:not-allowed}
+#app{display:none}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px;align-items:center}
+.bar input[type=search],.bar input[type=url]{flex:1 1 240px;min-width:0}
+.count{color:var(--muted);font-size:.9rem;margin:0 0 8px}
+.wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px;max-height:68vh;overflow-y:auto}
+table{border-collapse:collapse;width:100%;min-width:600px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap;max-width:360px;overflow:hidden;text-overflow:ellipsis}
+th{position:sticky;top:0;background:var(--surface);cursor:pointer;user-select:none;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;z-index:2}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--hover)}
+.err{color:var(--bad);margin-top:10px;font-weight:500}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--surface);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1240px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:6px;overflow-x:auto}
+.brand{font-weight:700;margin-right:10px;white-space:nowrap}
+.tab{border:0;background:transparent;border-radius:8px;padding:8px 12px;cursor:pointer;white-space:nowrap}
+.tab:hover:not(:disabled){background:var(--hover)}
+.tab.active{background:var(--accent);color:var(--accent-text)}
+.spacer{flex:1}
+[hidden]{display:none!important}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:14px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field span{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.field input,.field textarea{width:100%}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.card b{display:block;font-size:1.55rem}
+.card span{color:var(--muted);font-size:.85rem}
+.barcell{width:36%}
+.good{color:var(--good);font-weight:600}
+.bad{color:var(--bad);font-weight:600}
+.warn{color:var(--warn);font-weight:600}
+.bar2{height:10px;background:var(--accent);border-radius:5px;min-width:2px}
+#aText{flex:1 1 220px;min-width:0}
+.cal-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.cal-head strong{flex:1;text-align:center;text-transform:capitalize}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.dow{text-align:center;font-size:.75rem;color:var(--muted);text-transform:uppercase;padding:4px 0}
+.day{min-height:84px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:4px 6px;cursor:pointer;overflow:hidden;font-size:.8rem;text-align:left;color:var(--text);display:block;width:100%}
+.day.out{opacity:.45}
+.day.today{border-color:var(--accent)}
+.day.sel{outline:2px solid var(--accent)}
+.day .n{font-weight:700;display:block}
+.chip{display:block;background:var(--hover);border-radius:4px;padding:1px 4px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.72rem}
+.chip.done{text-decoration:line-through;color:var(--muted)}
+.cnt{display:none;background:var(--accent);color:var(--accent-text);border-radius:10px;font-size:.7rem;padding:0 6px;margin-top:4px;width:fit-content}
+.item{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:6px}
+.item .t{flex:1;min-width:0;overflow-wrap:anywhere}
+.item.done .t{text-decoration:line-through;color:var(--muted)}
+.dt{color:var(--muted);font-size:.85rem;white-space:nowrap}
+.dt.late{color:var(--bad);font-weight:600}
+#asIn{flex:1 1 220px;min-width:0}
+.chat{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;max-height:55vh;overflow-y:auto}
+.msg{padding:9px 12px;border-radius:10px;max-width:85%;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:var(--accent);color:var(--accent-text)}
+.msg.bot{align-self:flex-start;background:var(--surface);border:1px solid var(--line)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px}
+.tool-box{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px}
+.tool-box h3{margin:0 0 10px;font-size:1rem}
+.tool-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.tool-row label{font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:3px;flex:1 1 140px}
+.tool-row input,.tool-row select{width:100%}
+.mono-box{width:100%;min-height:125px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82rem;background:var(--surface)}
+@media (max-width:640px){.day{min-height:56px}.chip{display:none}.cnt{display:block}}
+.alert{display:flex;gap:12px;align-items:center;justify-content:space-between;background:var(--accent);color:var(--accent-text);padding:10px 16px;font-weight:600}
+dialog{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:12px;padding:0;max-width:620px;width:calc(100% - 24px);box-shadow:0 16px 40px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.dlg-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line)}
+.dlg-head strong{font-size:1.05rem}
+.dlg-body{padding:14px 16px;max-height:70vh;overflow-y:auto}
+.dlg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.dlg-kv{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.dlg-kv small{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase}
+.dlg-kv div{margin-top:2px;white-space:pre-wrap;overflow-wrap:anywhere}
+.dlg-foot{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:center;padding:12px 16px;border-top:1px solid var(--line)}
+.dlg-foot .count{margin:0;flex:1 1 100%}
+#toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;background:var(--text);color:var(--bg);border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:calc(100% - 24px)}
+#toast button{background:transparent;color:inherit;border:1px solid currentColor}
+#cfmMsg{white-space:pre-wrap;margin:0}
+tr.age-warn td:first-child{box-shadow:inset 4px 0 0 var(--warn)}
+tr.age-bad td:first-child{box-shadow:inset 4px 0 0 var(--bad)}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-in">
+    <span class="brand">🔧 Servicio técnico</span>
+    <button class="tab active" data-view="servicios">Tabla</button>
+    <button class="tab" data-view="nuevo">Nuevo servicio</button>
+    <button class="tab" data-view="informes">Informes</button>
+    <button class="tab" data-view="calendario">Calendario</button>
+    <button class="tab" data-view="asistente">Asistente</button>
+    <button class="tab" data-view="reportes">Reportes</button>
+    <span class="spacer"></span>
+    <select id="ds" title="Conjunto de datos">
+      <option value="servicios">Datos: Servicios</option>
+      <option value="demos">Datos: Demos</option>
+    </select>
+    <button class="tab" id="theme" title="Cambiar tema claro u oscuro">Tema</button>
+  </div>
+  <div id="alertBar" class="alert" hidden><span id="alertText"></span><button id="alertClose">Cerrar</button></div>
+</nav>
+
+<main>
+  <!-- TABLA -->
+  <div id="v-servicios">
+    <h1>Registros</h1>
+    <p class="sub">Conectá tu planilla de Google Sheets vía Apps Script o cargá archivos Excel/CSV locales (todas sus pestañas).</p>
+
+    <div class="bar">
+      <input id="gsUrl" type="url" placeholder="URL de Google Apps Script (https://script.google.com/macros/s/.../exec)">
+      <button id="gsLoadBtn" class="primary">Cargar desde Google</button>
+      <button id="gsClearBtn">Quitar URL</button>
+    </div>
+
+    <label class="drop" id="drop">
+      <strong>Elegí tus archivos Excel o CSV (podés elegir varios) o arrastralos acá</strong>
+      <span>.xlsx, .xls o .csv · se leen todas las pestañas y se separan Servicios y Demos</span>
+      <input id="file" type="file" accept=".xlsx,.xls,.csv" multiple hidden>
+    </label>
+    <div class="err" id="err"></div>
+    <p class="count" id="loadMsg"></p>
+    <div class="bar">
+      <button id="bkBtn" title="Guarda en un archivo todos tus datos: registros, calendario y ajustes">Descargar respaldo</button>
+      <button id="rsBtn" title="Recupera los datos desde un respaldo descargado antes">Restaurar respaldo</button>
+      <input id="rsFile" type="file" accept=".json,application/json" hidden>
+      <span class="count" style="margin:0">Tus datos viven solo en este navegador: descargá un respaldo de vez en cuando.</span>
+    </div>
+    <details class="panel" style="margin:0 0 10px">
+      <summary style="cursor:pointer;font-weight:600">Pegar filas copiadas de Excel o Google Sheets</summary>
+      <p class="count" style="margin-top:8px">Copiá las celdas (incluida la fila de títulos: Fecha, Cliente, …) y pegalas acá. Se agregan a la tabla sin borrar lo que ya tenés.</p>
+      <textarea id="pasteTable" class="mono-box" style="min-height:90px" rows="4" placeholder="Pegá acá las celdas copiadas"></textarea>
+      <div class="bar" style="margin-top:8px"><button id="pasteTableBtn" class="primary">Agregar a la tabla</button><button id="pasteTableClear">Limpiar</button><span class="count" id="pasteTableMsg" style="margin:0"></span></div>
+    </details>
+
+    <section id="app">
+      <div class="cards" id="todayCards"></div>
+      <p class="count" id="todayNote"></p>
+      <div class="panel" id="bkNudge" hidden style="margin:0 0 12px"><span id="bkNudgeText"></span> <button id="bkNudgeBtn" class="primary">Descargar respaldo ahora</button></div>
+      <div class="bar">
+        <input id="q" type="search" placeholder="Buscar en todas las columnas (cliente, equipo, número, serie…)">
+        <select id="f1" style="display:none"></select>
+        <select id="f2" style="display:none"></select>
+        <select id="f3" style="display:none" title="Filtrar por hoja"></select>
+        <button id="pendBtn" hidden>Pendientes</button>
+        <button id="clear">Limpiar</button>
+        <button id="colBtn" title="Mostrar, ocultar o agregar columnas">Columnas</button>
+        <button id="exportBtn" title="Descargar toda la tabla como .xlsx">Exportar .xlsx</button>
+        <button id="exportViewBtn" title="Descargar solo lo que se ve (filtros y columnas) como .xlsx">Exportar vista</button>
+        <button id="clearDataBtn" title="Quitar todos los datos de este conjunto (Servicios o Demos)">Quitar datos</button>
+        <button id="other" class="primary" title="Elegí uno o varios archivos Excel/CSV; reemplazan los datos cargados de este conjunto">Cargar / Reemplazar</button>
+      </div>
+      <div class="bar" id="dateBar">
+        <label class="count" style="margin:0">Desde <input type="date" id="dFrom"></label>
+        <label class="count" style="margin:0">Hasta <input type="date" id="dTo"></label>
+        <button id="rHoy">Hoy</button><button id="r7">Últimos 7 días</button><button id="rMes">Este mes</button>
+      </div>
+      <p class="count" id="count"></p>
+      <div class="wrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+    </section>
+  </div>
+
+  <!-- INFORMES Y PRESUPUESTOS -->
+  <div id="v-informes" hidden>
+    <h1>Informes y presupuestos</h1>
+    <p class="sub">Armá textos rápidos para enviar y el informe formal en Word o PDF.</p>
+    <section class="panel" aria-label="Generador rápido de informe o presupuesto">
+      <div class="tool-box">
+        <h3>Generador rápido de informe / presupuesto</h3>
+        <div class="tool-row">
+          <label>Tipo de texto
+            <select id="tMode">
+              <option value="informe">Informe técnico</option>
+              <option value="presupuesto">Presupuesto</option>
+              <option value="entrega">Entrega y conformidad</option>
+            </select>
+          </label>
+          <label>Cliente / Comercio
+            <input type="text" id="tClient" placeholder="Ej: Comercial El Sol">
+          </label>
+          <label>Equipo / Modelo
+            <input type="text" id="tEquip" placeholder="Ej: Impresora térmica / Balanza">
+          </label>
+        </div>
+        <div class="tool-row">
+          <label>Diagnóstico o falla
+            <input type="text" id="tDiag" placeholder="Ej: Cabezal sucio / sin alimentación">
+          </label>
+          <label>Acción / Repuesto / Monto
+            <input type="text" id="tAction" placeholder="Ej: Mantenimiento completo · Gs. 120.000">
+          </label>
+        </div>
+        <div class="bar" style="margin-bottom:8px">
+          <button id="genNoteBtn" class="primary">Armar texto</button>
+          <button id="copyNoteBtn">Copiar</button>
+          <button id="clearNoteBtn">Limpiar</button>
+        </div>
+        <textarea id="noteOut" class="mono-box" placeholder="Seleccioná el tipo de texto y completá los campos para generar el mensaje listo para enviar..."></textarea>
+      </div>
+    </section>
+    <section class="panel" id="repPanel" aria-label="Informe formal en Word o PDF">
+      <div class="tool-box">
+        <h3>Informe formal (Word / PDF)</h3>
+        <p class="count">Armá el informe con el formato de la empresa (logo, número, cliente, equipos y texto) y descargalo. Desde cualquier fila de la tabla, el botón "Armar informe" precarga los datos.</p>
+        <div class="tool-row">
+          <label>Nro <input type="text" id="iNro" placeholder="079"></label>
+          <label>Escrito por <input type="text" id="iBy" placeholder="Nombre del técnico"></label>
+          <label>Cliente <input type="text" id="iClient"></label>
+          <label>Fecha <input type="text" id="iDate" placeholder="dd/mm/aaaa"></label>
+        </div>
+        <div id="iItems"></div>
+        <div class="bar"><button id="iAddItem">+ Agregar equipo</button></div>
+        <label class="field"><span>Informe</span><textarea id="iText" rows="6" placeholder="Describí el diagnóstico y el trabajo realizado..."></textarea></label>
+        <div class="bar" style="margin-top:10px">
+          <button id="iFromNote">Traer datos del generador</button>
+          <button id="iWord" class="primary">Descargar Word (.docx)</button>
+          <button id="iPdf" class="primary">Descargar PDF</button>
+          <button id="iClear">Limpiar</button>
+        </div>
+        <p class="count" id="iMsg"></p>
+      </div>
+    </section>
+    <section class="panel" id="presPanel" aria-label="Presupuesto formal en Word o PDF">
+      <div class="tool-box">
+        <h3>Presupuesto formal (Word / PDF)</h3>
+        <p class="count">Armá el presupuesto con ítems y precios: el total se calcula solo (precios sin decimales, ej. 120.000).</p>
+        <div class="tool-row">
+          <label>Nro <input type="text" id="pNro" placeholder="001"></label>
+          <label>Cliente <input type="text" id="pClient"></label>
+          <label>Fecha <input type="text" id="pDate" placeholder="dd/mm/aaaa"></label>
+          <label>Moneda <input type="text" id="pCur" value="Gs."></label>
+          <label>Validez (días) <input type="text" id="pVal" value="7"></label>
+        </div>
+        <div id="pItems"></div>
+        <div class="bar"><button id="pAddItem">+ Agregar ítem</button><strong id="pTotal"></strong></div>
+        <label class="field"><span>Observaciones (opcional)</span><textarea id="pNote" rows="3" placeholder="Ej: Incluye mano de obra. Pago contra entrega."></textarea></label>
+        <div class="bar" style="margin-top:10px">
+          <button id="pWord" class="primary">Descargar Word (.docx)</button>
+          <button id="pPdf" class="primary">Descargar PDF</button>
+          <button id="pClear">Limpiar</button>
+        </div>
+        <p class="count" id="pMsg"></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- NUEVO SERVICIO -->
+  <div id="v-nuevo" hidden>
+    <h1>Nuevo servicio</h1>
+    <p class="sub">Completá los datos del servicio. Se suma a la tabla y, si configuraste tu URL y estás en Servicios, se envía a Google Sheets.</p>
+    <p id="noData">Primero cargá tu planilla desde Google Sheets o subí un Excel/CSV en la pestaña Tabla (o cambiá a Datos: Demos).</p>
+    <div id="formWrap" hidden>
+      <div class="tool-box" style="margin-bottom:14px">
+        <h3>Rellenar desde texto</h3>
+        <p class="count">Pegá el pedido con una línea por dato (ETIQUETA: valor). Se usan solo Servicio, Cliente, Número y RUC; lo demás (ej. Vendedor) se ignora.</p>
+        <textarea id="pasteIn" class="mono-box" style="min-height:90px" rows="4" placeholder="SERVICIO QUE SOLICITA: configuración de etiquetas&#10;CLIENTE: Fabian&#10;Número: 0981541006 - en la 804&#10;RUC: 80012345-6&#10;Vendedor: Pilar"></textarea>
+        <div class="bar" style="margin-top:8px"><button id="pasteBtn" class="primary">Rellenar campos</button><button id="pasteClear">Limpiar texto</button><span class="count" id="pasteMsg" style="margin:0"></span></div>
+      </div>
+      <div class="grid" id="fields"></div>
+      <div class="bar">
+        <button class="primary" id="save">Guardar servicio</button>
+        <button id="clearFormBtn">Limpiar campos</button>
+        <span id="msg" class="count"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORTES -->
+  <div id="v-reportes" hidden>
+    <h1>Reportes</h1>
+    <p class="sub">Resumen de todos los registros: los cargados y los agregados desde la web.</p>
+    <p id="repEmpty">Todavía no hay datos. Cargá tu planilla en la pestaña Tabla.</p>
+    <div id="repBody" hidden>
+      <div class="cards" id="cards"></div>
+      <div class="bar"><label>Agrupar por <select id="gby"></select></label></div>
+      <div class="wrap"><table><thead><tr><th>Valor</th><th>Registros</th><th>%</th><th></th></tr></thead><tbody id="gbody"></tbody></table></div>
+      <div id="kpiBox" hidden>
+        <h2>KPI diario</h2>
+        <div class="bar"><label>Mes <select id="kpiMonth"></select></label><span class="count">Meta de efectividad: 80%</span><button id="kpiExport" title="Descargar este KPI como Excel">Exportar KPI (.xlsx)</button></div>
+        <div class="wrap"><table><thead><tr><th>Día</th><th>Derivados</th><th>Realizados</th><th>Pendientes</th><th>Efectividad</th></tr></thead><tbody id="kpiBody"></tbody></table></div>
+        <p class="count" id="kpiNote"></p>
+      </div>
+      <div id="recentBox" hidden>
+        <h2>Últimos cargados desde la web</h2>
+        <div class="wrap"><table><thead id="rhead"></thead><tbody id="rbody"></tbody></table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDARIO -->
+  <div id="v-calendario" hidden>
+    <h1>Calendario</h1>
+    <p class="sub">Anotá los servicios pendientes en el día que corresponda. Tocá un día para ver o agregar.</p>
+    <div class="bar"><button id="voiceBtn"></button><span class="count" id="voiceNote"></span></div>
+    <div class="cal-head">
+      <button id="prev" title="Mes anterior">◀</button>
+      <strong id="calTitle"></strong>
+      <button id="todayBtn">Hoy</button>
+      <button id="next" title="Mes siguiente">▶</button>
+    </div>
+    <div class="cal" id="cal"></div>
+    <h2 id="dayTitle"></h2>
+    <div id="dayList"></div>
+    <div class="bar">
+      <input type="time" id="aTime" title="Hora (opcional)">
+      <input type="text" id="aText" placeholder="Cliente, equipo o tarea pendiente">
+      <button class="primary" id="aAdd">Agregar</button>
+    </div>
+    <h2>Próximos pendientes</h2>
+    <div id="upcoming"></div>
+  </div>
+
+  <!-- ASISTENTE -->
+  <div id="v-asistente" hidden>
+    <h1>Asistente</h1>
+    <p class="sub">Consultá pendientes, cuántos servicios tenés realizados (en general o por servicio/equipo), buscá registros o anotá tareas.</p>
+    <div class="chat" id="chat"></div>
+    <div class="bar">
+      <input type="text" id="asIn" placeholder="Escribí tu pregunta o pedido">
+      <button id="asMic" hidden title="Dictar con la voz">🎤</button>
+      <button class="primary" id="asSend">Enviar</button>
+    </div>
+    <p class="count" id="asStatus">Modo local activo: consulta y modifica tus datos directamente en el navegador.</p>
+  </div>
+</main>
+
+<!-- MODAL DETALLE -->
+<dialog id="rowDlg">
+  <div class="dlg-head">
+    <strong id="dlgTitle">Detalle del servicio</strong>
+    <button id="dlgClose" title="Cerrar">✕</button>
+  </div>
+  <div class="dlg-body"><div class="dlg-grid" id="dlgGrid"></div></div>
+  <div class="dlg-foot">
+    <p class="count" id="dlgNote"></p>
+    <button id="dlgWaBtn" hidden>WhatsApp</button>
+    <button id="dlgTelBtn" hidden>Llamar</button>
+    <button id="dlgDelBtn">Eliminar</button>
+    <button id="dlgEditBtn">Editar</button>
+    <button id="dlgSaveBtn" class="primary" hidden>Guardar cambios</button>
+    <button id="dlgCancelBtn" hidden>Cancelar</button>
+    <button id="dlgReportBtn">Armar informe</button>
+    <button id="dlgDoneBtn" hidden>Marcar realizado</button>
+    <button id="dlgCopyBtn" class="primary">Copiar ficha</button>
+  </div>
+</dialog>
+
+<div id="toast" hidden><span id="toastText"></span><button id="toastUndo">Deshacer</button></div>
+
+<dialog id="colDlg">
+  <div class="dlg-head"><strong>Columnas</strong><button id="colClose" title="Cerrar">✕</button></div>
+  <div class="dlg-body">
+    <p class="count">Elegí qué columnas ver en la tabla. Las ocultas siguen guardadas y se usan en la búsqueda y en el detalle.</p>
+    <div id="colList"></div>
+    <h2>Agregar columna propia</h2>
+    <div class="bar"><input type="text" id="colNew" placeholder="Nombre (ej. Garantía)" maxlength="40"><button id="colAdd" class="primary">Agregar</button></div>
+    <p class="count" id="colMsg"></p>
+  </div>
+</dialog>
+
+<dialog id="cfmDlg">
+  <div class="dlg-body"><p id="cfmMsg"></p></div>
+  <div class="dlg-foot"><button id="cfmNo">Cancelar</button><button id="cfmYes" class="primary">Aceptar</button></div>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const MAX = 1000;
+const STORAGE_KEY = "st_data2", AGENDA_KEY = "st_agenda", GS_URL_KEY = "st_gs_url", OVR_KEY = "st_ovr";
+
+let rows = [], headers = [], sortCol = null, sortDir = 1, added = 0;
+let pendOnly = false, filterCols = [], selectedRowIndex = null;
+let datasets = { servicios: { headers: [], rows: [], added: 0 }, demos: { headers: [], rows: [], added: 0 } };
+let cur = "servicios";
+
+/* ---------- Utilidades ---------- */
+const norm = s => String(s ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+const mk = (tag, text, cls) => { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (cls) e.className = cls; return e; };
+const pad = n => String(n).padStart(2, "0");
+const pickKey = (r, h) => { const k = Object.keys(r).find(x => norm(x) === norm(h)); return k ? String(r[k] ?? "") : ""; };
+
+/* Estado: "realizado" = solucionado, finalizado, resuelto, cerrado, vendido, etc. Todo lo demás (incluida celda vacía) = pendiente */
+const DONE_RE = /^(resuelt|solucion|finaliz|cerrad|hech[oa]|realiz|complet|vendid|entregad|ok$)/;
+const isDone = v => DONE_RE.test(norm(v));
+const isStatusCol = c => /^(estado|resolucion|situacion)$/.test(norm(c));
+
+function canon(col, val) {
+  const raw = String(val ?? "").trim();
+  const n = norm(col);
+  if (n === "resolucion") return isDone(raw) ? "Realizado" : "Pendiente";
+  if (isStatusCol(col)) return raw ? raw.charAt(0).toUpperCase() + raw.slice(1) : "Pendiente";
+  return raw ? raw.charAt(0).toUpperCase() + raw.slice(1) : "";
+}
+function getStatusCol() {
+  return headers.find(h => /^(estado|resolucion|situacion)$/.test(norm(h))) || headers.find(h => /estado|resolucion/.test(norm(h))) || null;
+}
+
+/* Fechas: dd/mm/yy, dd/mm/aaaa, dd-mm-aaaa, aaaa-mm-dd. Devuelve null si no es válida (ej. "22/1024") */
+function parseDate(v) {
+  const s = String(v ?? "").trim();
+  let m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4}|\d{2})(?!\d)/), y, mo, d;
+  if (m) { d = +m[1]; mo = +m[2]; y = +m[3]; }
+  else {
+    m = s.match(/^(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})(?!\d)/);
+    if (!m) return null;
+    y = +m[1]; mo = +m[2]; d = +m[3];
+  }
+  if (y < 100) y += 2000;
+  if (mo < 1 || mo > 12 || d < 1 || d > new Date(y, mo, 0).getDate()) return null;
+  return { y, mo, d };
+}
+
+/* Firma de un registro (para detectar duplicados y reaplicar cambios locales) */
+function sigOf(r, hs) {
+  const keys = hs.filter(h => /numero|cliente|equipo/.test(norm(h)));
+  return (keys.length ? keys : hs).map(h => norm(pickKey(r, h))).join("|");
+}
+function getOvr() { try { return JSON.parse(localStorage.getItem(OVR_KEY) || "{}"); } catch (e) { return {}; } }
+function setOvr(o) { try { localStorage.setItem(OVR_KEY, JSON.stringify(o)); } catch (e) {} }
+function applyOverrides(name) {
+  const ds = datasets[name], ovr = getOvr();
+  let changed = false;
+  ds.rows.forEach(r => {
+    const k = name + "::" + sigOf(r, ds.headers), o = ovr[k];
+    if (!o) return;
+    const col = Object.keys(o)[0];
+    if (isDone(r[col])) { delete ovr[k]; changed = true; } else r[col] = o[col];
+  });
+  if (changed) setOvr(ovr);
+}
+
+/* ---------- Persistencia ---------- */
+function stash() { datasets[cur] = { ...datasets[cur], headers, rows, added }; }
+function save() {
+  stash();
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ datasets, cur })); return true; }
+  catch (e) {
+    const t = "No pude guardar en este navegador (espacio lleno o bloqueado). Exportá a .xlsx para no perder datos.";
+    $("err").textContent = t; $("alertText").textContent = t; $("alertBar").hidden = false;
+    return false;
+  }
+}
+function refreshAll() {
+  setupFilters(); render();
+  if (!$("v-nuevo").hidden) buildForm();
+  if (!$("v-reportes").hidden) buildReport();
+}
+function showApp() {
+  ensureRuc(); ensureCustom();
+  const has = headers.length > 0;
+  $("app").style.display = has ? "block" : "none";
+  $("drop").style.display = has ? "none" : "";
+  if (has) { setupFilters(); render(); }
+}
+
+/* ---------- Google Apps Script ---------- */
+const gsKey = n => n === "demos" ? "st_gs_url_demos" : GS_URL_KEY;
+function storedGsUrl(n) { try { return (localStorage.getItem(gsKey(n)) || "").trim(); } catch (e) { return ""; } }
+const getGsUrl = n => { const t = n || cur; return t === cur ? $("gsUrl").value.trim() : storedGsUrl(t); };
+function saveGsUrl() { try { localStorage.setItem(gsKey(cur), $("gsUrl").value.trim()); } catch (e) {} }
+const withTipo = (url, n) => url + (url.indexOf("?") > -1 ? "&" : "?") + "tipo=" + n;
+function paintGsPlaceholder() { $("gsUrl").placeholder = "URL de Google Apps Script para " + (cur === "demos" ? "Demos" : "Servicios") + " (https://script.google.com/macros/s/.../exec)"; }
+
+async function loadFromGoogleSheets(silent = false, name = cur) {
+  const url = getGsUrl(name);
+  if (!url) { if (!silent) $("err").textContent = "Pegá primero la URL de implementación de tu Google Apps Script."; return; }
+  if (!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/i.test(url)) {
+    if (!silent) $("err").textContent = "La URL debe ser una implementación web de Google Apps Script terminada en /exec.";
+    return;
+  }
+  if (name === cur) saveGsUrl();
+  $("err").textContent = "";
+  $("gsLoadBtn").disabled = true; $("gsLoadBtn").textContent = "Cargando...";
+  let to;
+  const timeout = new Promise((_, rej) => { to = setTimeout(() => rej(new Error("tiempo de espera agotado")), 20000); });
+  try {
+    const res = await Promise.race([fetch(withTipo(url, name), { method: "GET", cache: "no-store" }), timeout]);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    let data;
+    try { data = await res.json(); } catch (e) { throw new Error("la respuesta no es JSON; revisá que el script esté publicado para 'Cualquier persona'"); }
+    let hs = Array.isArray(data && data.headers) ? data.headers.map(h => String(h).trim()).filter(Boolean) : [];
+    const raw = Array.isArray(data) ? data : (Array.isArray(data && data.rows) ? data.rows : []);
+    const objs = raw.map(r => Array.isArray(r) ? Object.fromEntries(hs.map((h, i) => [h, r[i]])) : r).filter(r => r && typeof r === "object");
+    if (!hs.length && objs.length) hs = Object.keys(objs[0]);
+    if (!hs.length) throw new Error("la hoja no devolvió columnas ni filas");
+
+    const fresh = objs.map(r => { const o = {}; hs.forEach(h => { o[h] = String(pickKey(r, h)).trim(); }); return o; })
+                      .filter(o => Object.values(o).some(Boolean));
+    stash();
+    /* Los servicios cargados localmente que todavía no aparecen en la planilla NO se pierden */
+    const old = datasets[name];
+    const sigs = new Set(fresh.map(r => sigOf(r, hs)));
+    const unsynced = old.rows.slice(0, old.added)
+      .map(r => { const o = {}; hs.forEach(h => { o[h] = pickKey(r, h); }); return o; })
+      .filter(r => !sigs.has(sigOf(r, hs)));
+    datasets[name] = { headers: hs, rows: unsynced.concat(fresh), added: unsynced.length, source: "Google Sheets" };
+    applyOverrides(name);
+    const active = name === cur;
+    if (active) { ({ headers, rows, added } = datasets[name]); sortCol = null; sortDir = 1; pendOnly = false; $("q").value = ""; }
+    $("loadMsg").textContent = (active ? "" : "[" + name + "] ") + "Sincronizado con Google Sheets (" + fresh.length + " filas)" +
+      (unsynced.length ? " · " + unsynced.length + " servicio(s) cargado(s) en la web todavía no figuran en la planilla" : "");
+    save(); if (active) { showApp(); refreshAll(); }
+  } catch (err) {
+    const hint = /failed to fetch|networkerror|load failed|cloned/i.test(err.message) ? " Si abrís la web desde un enlace publicado o una vista previa, el navegador bloquea la conexión con Google: guardá el archivo .html en tu computadora y abrilo desde ahí." : "";
+    const t = "No pude leer desde Google Sheets (" + err.message + "). Se muestran los datos guardados en este navegador." + hint;
+    if (silent) $("loadMsg").textContent = t; else $("err").textContent = t;
+  } finally {
+    clearTimeout(to);
+    $("gsLoadBtn").disabled = false; $("gsLoadBtn").textContent = "Cargar desde Google";
+  }
+}
+
+async function pushRowToGoogleSheets(payloadObj) {
+  const url = getGsUrl();
+  if (!url) return { sent: false };
+  try {
+    await fetch(withTipo(url, cur), { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payloadObj) });
+    return { sent: true };
+  } catch (err) { return { sent: false, error: err.message }; }
+}
+
+$("gsUrl").addEventListener("change", saveGsUrl);
+$("gsLoadBtn").onclick = () => loadFromGoogleSheets(false, cur);
+$("gsClearBtn").onclick = () => { $("gsUrl").value = ""; try { localStorage.removeItem(gsKey(cur)); } catch (e) {} $("err").textContent = ""; };
+
+/* ---------- Carga de Excel/CSV (todas las pestañas, varios archivos) ---------- */
+/* Busca la fila de títulos (dentro de las primeras 15 filas, la que tenga Fecha y Cliente); si no hay, usa la primera fila con datos */
+function sheetToObjects(ws) {
+  const aoa = XLSX.utils.sheet_to_json(ws, { header: 1, defval: "", raw: false, blankrows: false });
+  if (!aoa.length) return { objs: [], found: false, first: [] };
+  let hi = aoa.slice(0, 15).findIndex(r => { const n = r.map(norm); return n.includes("fecha") && n.includes("cliente"); });
+  const found = hi >= 0; if (!found) hi = 0;
+  const hdr = aoa[hi].map(c => String(c ?? "").trim());
+  const objs = aoa.slice(hi + 1).map(r => { const o = {}; hdr.forEach((hh, i) => { if (hh) o[hh] = r[i] ?? ""; }); return o; })
+                  .filter(o => Object.values(o).some(v => String(v).trim()));
+  return { objs, found, first: hdr.filter(Boolean) };
+}
+function classify(first) {
+  const hs = first.map(norm);
+  if (!hs.includes("fecha") || !hs.includes("cliente")) return null;
+  return hs.some(x => x.includes("modalidad") || x.includes("tipo de negocio")) ? "demos" : "servicios";
+}
+function ingest(sr, sheet, b) {
+  sr.forEach(r => {
+    const o = {};
+    for (const k in r) {
+      const key = k.trim(); if (!key) continue;
+      let hh = b.headers.find(x => norm(x) === norm(key));
+      if (!hh) { hh = key; b.headers.push(hh); }
+      o[hh] = String(r[k] ?? "").trim();
+    }
+    if (!Object.values(o).some(Boolean)) return;
+    o.Hoja = sheet; b.rows.push(o);
+  });
+}
+async function handleFiles(fileList) {
+  const files = Array.from(fileList || []);
+  if (!files.length) return;
+  if (typeof XLSX === "undefined") { $("err").textContent = "No cargó la librería XLSX. Revisá tu conexión a internet."; return; }
+  $("err").textContent = ""; $("loadMsg").textContent = "Leyendo…";
+  const bk = { servicios: { headers: [], rows: [] }, demos: { headers: [], rows: [] }, otros: { headers: [], rows: [] } };
+  const skipped = [], bad = [];
+  for (const f of files) {
+    try {
+      const w = XLSX.read(new Uint8Array(await f.arrayBuffer()), { type: "array" });
+      w.SheetNames.forEach(n => {
+        const { objs, found, first } = sheetToObjects(w.Sheets[n]);
+        if (!objs.length) return;
+        const t = found ? classify(first) : null;
+        if (t) ingest(objs, n, bk[t]);
+        else { skipped.push(f.name + " › " + n + " (columnas: " + first.slice(0, 6).join(", ") + ")"); ingest(objs, n, bk.otros); }
+      });
+    } catch (e) { bad.push(f.name); }
+  }
+  const names = files.map(f => f.name).join(", ");
+  if (bad.length) $("err").textContent = "No pude leer: " + bad.join(", ") + ". Verificá que sean .xlsx, .xls o .csv válidos.";
+  let fallback = false;
+  if (!bk.servicios.rows.length && !bk.demos.rows.length && bk.otros.rows.length) { bk[cur] = bk.otros; fallback = true; }
+  if (!bk.servicios.rows.length && !bk.demos.rows.length) {
+    $("loadMsg").textContent = "No encontré filas con datos en " + names + ". Se mantienen los datos que ya tenías.";
+    return;
+  }
+  stash();
+  const parts = []; let kept = 0;
+  ["servicios", "demos"].forEach(k => {
+    const b = bk[k]; if (!b.rows.length) return;
+    const old = datasets[k], keep = old.rows.slice(0, old.added);
+    b.headers = b.headers.filter(x => x !== "Hoja").concat("Hoja");
+    const keptRows = keep.map(r => { const o = {}; b.headers.forEach(x => { o[x] = pickKey(r, x); }); return o; });
+    kept += keptRows.length;
+    datasets[k] = { headers: b.headers, rows: keptRows.concat(b.rows), added: keptRows.length, source: names };
+    applyOverrides(k);
+    parts.push(b.rows.length + " de " + k);
+  });
+  const first = ["servicios", "demos"].find(k => bk[k].rows.length);
+  if (!bk[cur].rows.length) cur = first;
+  ({ headers, rows, added } = datasets[cur]);
+  $("ds").value = cur; sortCol = null; sortDir = 1; pendOnly = false; $("q").value = "";
+  save(); showApp(); refreshAll();
+  let msg = "Cargado: " + names + " → " + parts.join(" y ") + ".";
+  if (kept) msg += " Se conservaron " + kept + " registro(s) cargados desde la web (quedan arriba de la tabla; usá 'Quitar datos' si querés empezar de cero).";
+  if (fallback) msg += " No encontré columnas Fecha y Cliente: cargué las hojas tal cual.";
+  else if (skipped.length) msg += " Hojas ignoradas por no tener Fecha y Cliente: " + skipped.join("; ") + ".";
+  if ((bk.servicios.rows.length && getGsUrl("servicios")) || (bk.demos.rows.length && getGsUrl("demos"))) msg += " Ojo: tenés una URL de Google guardada; al abrir la página se vuelve a cargar desde Google y pisa este Excel. Usá 'Quitar URL' para trabajar solo con archivos.";
+  $("loadMsg").textContent = msg;
+}
+
+/* ---------- Tabla ---------- */
+function updatePend() {
+  const stCol = getStatusCol(), btn = $("pendBtn");
+  if (!stCol) { btn.hidden = true; pendOnly = false; return; }
+  btn.hidden = false;
+  btn.textContent = "Pendientes (" + rows.filter(r => !isDone(r[stCol])).length + ")";
+  btn.classList.toggle("active-pill", pendOnly);
+}
+function setupFilters() {
+  filterCols = [];
+  [/^(estado|resolucion)$/, /^tecnico$/, /^hoja$/].forEach((key, i) => {
+    const sel = $(["f1", "f2", "f3"][i]);
+    const col = headers.find(h => key.test(norm(h)));
+    sel.innerHTML = "";
+    if (!col) { sel.style.display = "none"; return; }
+    const seen = new Map();
+    rows.forEach(r => { const c = canon(col, r[col]); if (c && !seen.has(norm(c))) seen.set(norm(c), c); });
+    const vals = [...seen].sort((a, b) => a[1].localeCompare(b[1], "es"));
+    sel.add(new Option("Todos: " + col, ""));
+    vals.forEach(([k, label]) => sel.add(new Option(label, k)));
+    sel.style.display = "";
+    filterCols.push({ col, sel });
+  });
+}
+function render() {
+  updatePend();
+  buildToday();
+  $("dateBar").hidden = !getDateCol();
+  const words = norm($("q").value).split(/\s+/).filter(Boolean), stCol = getStatusCol();
+  const dcol = getDateCol(), fromN = Number(($("dFrom").value || "").replace(/-/g, "")) || 0, toN = Number(($("dTo").value || "").replace(/-/g, "")) || 0;
+  let list = rows.filter(r => {
+    if (pendOnly && stCol && isDone(r[stCol])) return false;
+    if (dcol && (fromN || toN)) {
+      const dt = parseDate(r[dcol]); if (!dt) return false;
+      const n = dt.y * 10000 + dt.mo * 100 + dt.d;
+      if ((fromN && n < fromN) || (toN && n > toN)) return false;
+    }
+    for (const f of filterCols) if (f.sel.value && norm(canon(f.col, r[f.col])) !== f.sel.value) return false;
+    if (!words.length) return true;
+    const hay = norm(Object.values(r).join(" "));
+    return words.every(w => hay.includes(w));
+  });
+  if (sortCol !== null) list = list.slice().sort((a, b) => String(a[sortCol] ?? "").localeCompare(String(b[sortCol] ?? ""), "es", { numeric: true }) * sortDir);
+  lastList = list;
+  $("count").textContent = list.length + " de " + rows.length + (cur === "demos" ? " demos" : " servicios") + (list.length > MAX ? " (mostrando los primeros " + MAX + ")" : "");
+  const thead = $("thead"), tbody = $("tbody");
+  thead.innerHTML = ""; tbody.innerHTML = "";
+  const tr = document.createElement("tr"), vis = visCols();
+  vis.forEach(h => {
+    const th = document.createElement("th");
+    th.textContent = h + (sortCol === h ? (sortDir === 1 ? " ▲" : " ▼") : "");
+    th.onclick = () => { sortDir = sortCol === h ? -sortDir : 1; sortCol = h; render(); };
+    tr.appendChild(th);
+  });
+  thead.appendChild(tr);
+  const frag = document.createDocumentFragment();
+  list.slice(0, MAX).forEach(r => {
+    const row = document.createElement("tr"), idx = rows.indexOf(r);
+    const age = ageOf(r); if (age !== null) { if (age > 7) row.className = "age-bad"; else if (age > 3) row.className = "age-warn"; }
+    vis.forEach(h => { const td = document.createElement("td"); td.textContent = r[h] ?? ""; td.title = r[h] ?? ""; row.appendChild(td); });
+    row.onclick = () => openRowModal(idx);
+    frag.appendChild(row);
+  });
+  tbody.appendChild(frag);
+}
+
+/* ---------- Modal de detalle ---------- */
+function openRowModal(idx) {
+  const r = rows[idx]; if (!r) return;
+  selectedRowIndex = idx;
+  const grid = $("dlgGrid"); grid.innerHTML = "";
+  headers.forEach(h => { const box = mk("div", undefined, "dlg-kv"); box.appendChild(mk("small", h)); box.appendChild(mk("div", r[h] || "—")); grid.appendChild(box); });
+  const stCol = getStatusCol();
+  ["dlgDelBtn", "dlgEditBtn", "dlgReportBtn", "dlgCopyBtn"].forEach(id => { $(id).hidden = false; });
+  dlgPhone = phoneOf(r); $("dlgWaBtn").hidden = !dlgPhone; $("dlgTelBtn").hidden = !dlgPhone;
+  $("dlgSaveBtn").hidden = true; $("dlgCancelBtn").hidden = true;
+  $("dlgDoneBtn").hidden = !(stCol && !isDone(r[stCol]));
+  $("dlgNote").textContent = "";
+  if (!$("rowDlg").open) $("rowDlg").showModal();
+}
+$("dlgClose").onclick = () => $("rowDlg").close();
+$("rowDlg").addEventListener("click", e => { if (e.target === $("rowDlg")) $("rowDlg").close(); });
+$("dlgDoneBtn").onclick = () => {
+  const r = rows[selectedRowIndex], stCol = getStatusCol();
+  if (!r || !stCol) return;
+  r[stCol] = "Realizado";
+  const ovr = getOvr(); ovr[cur + "::" + sigOf(r, headers)] = { [stCol]: "Realizado" }; setOvr(ovr);
+  save(); refreshAll();
+  openRowModal(selectedRowIndex);
+  $("dlgNote").textContent = getGsUrl()
+    ? "Marcado como realizado solo en esta web: no se envía a Google Sheets. Actualizalo también en la planilla."
+    : "Marcado como realizado en esta web.";
+};
+$("dlgCopyBtn").onclick = () => {
+  const r = rows[selectedRowIndex]; if (!r) return;
+  const txt = headers.map(h => h + ": " + (r[h] || "-")).join("\n");
+  navigator.clipboard?.writeText(txt).catch(() => {});
+  $("dlgCopyBtn").textContent = "Copiado ✓";
+  setTimeout(() => { $("dlgCopyBtn").textContent = "Copiar ficha"; }, 1400);
+};
+
+$("exportBtn").onclick = () => {
+  if (!rows.length || typeof XLSX === "undefined") return;
+  const ws = XLSX.utils.json_to_sheet(rows, { header: headers });
+  const outWb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(outWb, ws, cur === "demos" ? "Demos" : "Servicios");
+  XLSX.writeFile(outWb, "servicio_tecnico_" + cur + "_" + new Date().toISOString().slice(0, 10) + ".xlsx");
+};
+
+$("file").onchange = e => { handleFiles(e.target.files); e.target.value = ""; };
+$("q").oninput = render;
+["f1", "f2", "f3"].forEach(id => { $(id).onchange = render; });
+$("pendBtn").onclick = () => { pendOnly = !pendOnly; render(); };
+$("clear").onclick = () => { $("q").value = ""; ["f1", "f2", "f3"].forEach(id => { $(id).value = ""; }); $("dFrom").value = ""; $("dTo").value = ""; pendOnly = false; render(); };
+/* ---------- Confirmación propia y avisos (no usan confirm/alert del navegador, que a veces están bloqueados) ---------- */
+function askConfirm(msg) {
+  return new Promise(res => {
+    const dlg = $("cfmDlg"); $("cfmMsg").textContent = msg;
+    const done = v => { dlg.close(); $("cfmYes").onclick = null; $("cfmNo").onclick = null; dlg.oncancel = null; res(v); };
+    $("cfmYes").onclick = () => done(true); $("cfmNo").onclick = () => done(false);
+    dlg.oncancel = e => { e.preventDefault(); done(false); };
+    dlg.showModal();
+  });
+}
+let toastTimer = null;
+function showToast(text, undoFn) {
+  clearTimeout(toastTimer); $("toastText").textContent = text;
+  $("toastUndo").hidden = !undoFn;
+  $("toastUndo").onclick = () => { $("toast").hidden = true; clearTimeout(toastTimer); if (undoFn) undoFn(); };
+  $("toast").hidden = false; toastTimer = setTimeout(() => { $("toast").hidden = true; }, 10000);
+}
+
+/* ---------- Editar / eliminar registro ---------- */
+let dlgInputs = {};
+$("dlgEditBtn").onclick = () => {
+  const r = rows[selectedRowIndex]; if (!r) return;
+  const grid = $("dlgGrid"); grid.innerHTML = ""; dlgInputs = {};
+  headers.forEach(h => {
+    const box = mk("div", undefined, "dlg-kv"); box.appendChild(mk("small", h));
+    const long = String(r[h] ?? "").length > 60 || /proceso|procedimiento|asunto|descripcion|observ|detalle|problema|resolucion/.test(norm(h));
+    const inp = document.createElement(long ? "textarea" : "input");
+    if (long) inp.rows = 3; else inp.type = "text";
+    inp.value = r[h] ?? ""; inp.style.width = "100%"; dlgInputs[h] = inp; box.appendChild(inp); grid.appendChild(box);
+  });
+  ["dlgEditBtn", "dlgDelBtn", "dlgDoneBtn", "dlgReportBtn", "dlgCopyBtn", "dlgWaBtn", "dlgTelBtn"].forEach(id => { $(id).hidden = true; });
+  $("dlgSaveBtn").hidden = false; $("dlgCancelBtn").hidden = false;
+  $("dlgNote").textContent = "Editando el registro.";
+};
+$("dlgCancelBtn").onclick = () => openRowModal(selectedRowIndex);
+$("dlgSaveBtn").onclick = () => {
+  const idx = selectedRowIndex, r = rows[idx]; if (!r) return;
+  headers.forEach(h => { if (dlgInputs[h]) r[h] = dlgInputs[h].value.trim(); });
+  save(); refreshAll(); openRowModal(idx);
+  $("dlgNote").textContent = getGsUrl()
+    ? "Cambios guardados solo en esta web: no se envían a Google Sheets (si recargás desde Google, vuelve el dato original)."
+    : "Cambios guardados ✓";
+};
+$("dlgDelBtn").onclick = async () => {
+  const r = rows[selectedRowIndex]; if (!r) return;
+  const extra = getGsUrl() ? "\n\nSolo se borra de esta web; si recargás desde Google Sheets, volverá a aparecer." : "";
+  if (!(await askConfirm("¿Eliminar este registro?" + extra))) return;
+  const i = rows.indexOf(r); if (i < 0) return;
+  const wasAdded = i < added, ds = cur;
+  rows.splice(i, 1); if (wasAdded) added--;
+  selectedRowIndex = null; save(); refreshAll(); $("rowDlg").close();
+  showToast("Registro eliminado.", () => {
+    if (cur !== ds) return;
+    rows.splice(Math.min(i, rows.length), 0, r); if (wasAdded) added++;
+    save(); refreshAll();
+  });
+};
+
+/* ---------- Respaldo y restauración ---------- */
+$("bkBtn").onclick = () => {
+  stash();
+  try { localStorage.setItem("st_last_bk", String(Date.now())); } catch (e) {}
+  setTimeout(buildToday, 300);
+  const data = { app: "servicio-tecnico", version: 1, fecha: new Date().toISOString(), datasets, cur, agenda, informe: infMeta(), overrides: getOvr(), gsUrls: { servicios: getGsUrl("servicios"), demos: getGsUrl("demos") }, hidden: hiddenCols, custom: customCols, voz: voiceOn };
+  downloadBlob(new Blob([JSON.stringify(data)], { type: "application/json" }), "respaldo_servicio_tecnico_" + new Date().toISOString().slice(0, 10) + ".json");
+  $("err").textContent = "";
+  $("loadMsg").textContent = "Respaldo descargado ✓ (" + (datasets.servicios.rows.length + datasets.demos.rows.length) + " registros y " + agenda.length + " pendientes del calendario).";
+};
+$("rsBtn").onclick = () => $("rsFile").click();
+$("rsFile").onchange = async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  try {
+    const d = JSON.parse(await f.text());
+    if (!d || d.app !== "servicio-tecnico" || !d.datasets) throw new Error("no parece un respaldo de esta web");
+    if (!["servicios", "demos"].every(k => d.datasets[k] && Array.isArray(d.datasets[k].rows) && Array.isArray(d.datasets[k].headers))) throw new Error("el respaldo está incompleto");
+    const n = d.datasets.servicios.rows.length + d.datasets.demos.rows.length;
+    if (!(await askConfirm("¿Restaurar el respaldo del " + String(d.fecha || "").slice(0, 10) + " (" + n + " registros)?\n\nSe reemplazan los datos actuales de esta web."))) return;
+    const pick = k => ({ headers: d.datasets[k].headers, rows: d.datasets[k].rows, added: d.datasets[k].added || 0 });
+    datasets = { servicios: pick("servicios"), demos: pick("demos") };
+    cur = datasets[d.cur] ? d.cur : "servicios";
+    agenda = Array.isArray(d.agenda) ? d.agenda : [];
+    setOvr(d.overrides && typeof d.overrides === "object" ? d.overrides : {});
+    try {
+      if (d.informe) localStorage.setItem(INF_KEY, JSON.stringify(d.informe));
+      const gu = d.gsUrls || (d.gsUrl ? { servicios: d.gsUrl } : null);
+      if (gu) Object.keys(gu).forEach(k => { if (gu[k]) localStorage.setItem(gsKey(k), gu[k]); });
+      if (d.hidden && typeof d.hidden === "object") { hiddenCols = d.hidden; saveHidden(); }
+      if (d.custom && typeof d.custom === "object") { customCols = d.custom; saveCustom(); }
+    } catch (e2) {}
+    ({ headers, rows, added } = datasets[cur]); $("ds").value = cur; $("gsUrl").value = storedGsUrl(cur); paintGsPlaceholder(); sortCol = null; pendOnly = false; $("q").value = "";
+    save(); saveAgenda(); showApp(); refreshAll(); buildCalendar(); resetInforme(true);
+    $("err").textContent = ""; $("loadMsg").textContent = "Respaldo restaurado ✓ (" + n + " registros y " + agenda.length + " pendientes).";
+  } catch (err) { $("err").textContent = "No pude restaurar el respaldo: " + err.message; }
+};
+
+$("clearDataBtn").onclick = async () => {
+  if (!rows.length) return;
+  const nombre = cur === "demos" ? "Demos" : "Servicios";
+  if (!(await askConfirm("¿Quitar TODOS los datos de " + nombre + " (" + rows.length + " registros)?\n\nIncluye los que cargaste desde la web. Si querés una copia, exportá a .xlsx antes."))) return;
+  const ovr = getOvr(); Object.keys(ovr).forEach(k => { if (k.startsWith(cur + "::")) delete ovr[k]; }); setOvr(ovr);
+  headers = []; rows = []; added = 0; sortCol = null; pendOnly = false; $("q").value = "";
+  save(); $("err").textContent = ""; $("loadMsg").textContent = "Datos de " + nombre + " quitados.";
+  showApp(); refreshAll();
+};
+$("other").onclick = () => $("file").click();
+const drop = $("drop");
+["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => handleFiles(e.dataTransfer.files));
+
+$("ds").onchange = e => {
+  saveGsUrl(); stash(); cur = e.target.value;
+  $("gsUrl").value = storedGsUrl(cur); paintGsPlaceholder(); $("dFrom").value = ""; $("dTo").value = "";
+  ({ headers, rows, added } = datasets[cur]);
+  sortCol = null; pendOnly = false; $("q").value = "";
+  $("err").textContent = ""; $("loadMsg").textContent = datasets[cur].source ? "Origen de los datos: " + datasets[cur].source : "";
+  save(); showApp(); refreshAll();
+};
+$("theme").onclick = () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+};
+function show(v) {
+  ["servicios", "informes", "nuevo", "calendario", "asistente", "reportes"].forEach(n => { $("v-" + n).hidden = n !== v; });
+  document.querySelectorAll("[data-view]").forEach(b => b.classList.toggle("active", b.dataset.view === v));
+  if (v === "nuevo") buildForm();
+  if (v === "reportes") buildReport();
+  if (v === "calendario") buildCalendar();
+  window.scrollTo(0, 0);
+}
+document.querySelectorAll("[data-view]").forEach(b => { b.onclick = () => show(b.dataset.view); });
+
+/* ---------- Nuevo servicio ---------- */
+const fields = {};
+function buildForm() {
+  ensureRuc(); ensureCustom();
+  const box = $("fields"); box.innerHTML = ""; $("msg").textContent = "";
+  const has = headers.length > 0;
+  $("noData").hidden = has; $("formWrap").hidden = !has;
+  if (!has) return;
+  headers.forEach((h, i) => {
+    const n = norm(h);
+    const wrap = mk("label", undefined, "field");
+    wrap.appendChild(mk("span", h));
+    const long = /proceso|procedimiento|asunto|descripcion|observ|detalle|problema/.test(n);
+    const inp = document.createElement(long ? "textarea" : "input");
+    if (long) inp.rows = 3; else inp.type = "text";
+    const vals = [...new Set(rows.map(r => String(r[h] ?? "").trim()).filter(Boolean))];
+    if (!long && !/numero|fecha/.test(n) && vals.length && vals.length <= 60) {
+      const dl = document.createElement("datalist"); dl.id = "dl" + i;
+      vals.sort((a, b) => a.localeCompare(b, "es")).forEach(v => dl.appendChild(new Option(v)));
+      inp.setAttribute("list", dl.id); wrap.appendChild(dl);
+    }
+    if (n === "numero" && vals.length && vals.every(v => /^\d+$/.test(v))) inp.value = String(Math.max(...vals.map(Number)) + 1);
+    if (n.includes("fecha")) { const d = new Date(); inp.value = [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join("/"); }
+    if (n === "hoja") { inp.value = "Web"; wrap.style.display = "none"; }
+    fields[h] = inp; wrap.appendChild(inp); box.appendChild(wrap);
+  });
+}
+/* ---------- Columna RUC y relleno desde texto pegado ---------- */
+/* Agrega la columna RUC (después de Número) al conjunto Servicios si todavía no existe */
+function ensureRuc() {
+  if (cur !== "servicios" || !headers.length || headers.some(x => norm(x) === "ruc")) return;
+  const ni = headers.findIndex(x => /^(numero|nro|telefono|celular|contacto)$/.test(norm(x)));
+  const hi = headers.findIndex(x => norm(x) === "hoja");
+  headers.splice(ni >= 0 ? ni + 1 : (hi >= 0 ? hi : headers.length), 0, "RUC");
+  rows.forEach(r => { if (r.RUC === undefined) r.RUC = ""; });
+  save();
+}
+/*PURE3-START*/
+function parsePedido(text) {
+  const out = {}, ignored = []; let last = null;
+  const clean = s => { const v = s.trim(); return /\b[A-Za-z]\.[A-Za-z]\.$/.test(v) ? v : v.replace(/\.\s*$/, "").trim(); };
+  String(text || "").split(/\r?\n/).forEach(line => {
+    const l = line.trim(); if (!l) return;
+    const m = l.match(/^([^:：]{1,40}?)\s*[:：]\s*(.*)$/);
+    if (m) {
+      const k = String(m[1]).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+      let key = null;
+      if (/^(servicio|servicios|servicio que solicita|servicio solicitado|solicita|trabajo|trabajo solicitado)$/.test(k)) key = "servicio";
+      else if (/^(cliente|nombre|razon social)$/.test(k)) key = "cliente";
+      else if (/^(numero|nro|n|telefono|tel|celular|contacto|whatsapp)$/.test(k)) key = "numero";
+      else if (/^(ruc|ruc ci|ci ruc)$/.test(k)) key = "ruc";
+      last = key;
+      if (key) out[key] = clean(m[2]); else ignored.push(m[1].trim());
+    } else if (last) out[last] = clean(out[last] + " " + l);
+  });
+  return { out, ignored };
+}
+/*PURE3-END*/
+function fillFromPedido() {
+  const { out, ignored } = parsePedido($("pasteIn").value);
+  if (!Object.keys(out).length) { $("pasteMsg").textContent = "No encontré datos. Usá líneas con el formato ETIQUETA: valor."; return; }
+  const find = (...res) => { for (const re of res) { const x = headers.find(y => re.test(norm(y))); if (x) return x; } return null; };
+  const target = {
+    servicio: find(/^servicios?( solicitado| que solicita)?$/, /^asunto$/, /^(detalle|descripcion|problema|motivo)$/),
+    cliente: find(/^cliente$/),
+    numero: find(/^(numero|nro|telefono|celular|contacto)$/),
+    ruc: find(/^ruc$/)
+  };
+  const names = { servicio: "Servicio", cliente: "Cliente", numero: "Número", ruc: "RUC" }, ok = [], miss = [];
+  ["servicio", "cliente", "numero", "ruc"].forEach(k => {
+    if (out[k] === undefined) return;
+    const x = target[k];
+    if (x && fields[x] && fields[x].isConnected) { fields[x].value = out[k]; ok.push(names[k] + (k === "servicio" ? " → " + x : "")); }
+    else miss.push(names[k]);
+  });
+  $("pasteMsg").textContent = (ok.length ? "Rellené: " + ok.join(", ") + "." : "") + (miss.length ? " No hay columna para: " + miss.join(", ") + "." : "") +
+    (ignored.length ? " No usé: " + ignored.join(", ") + "." : "") + " Revisá y apretá Guardar servicio.";
+}
+$("pasteBtn").onclick = fillFromPedido;
+$("pasteClear").onclick = () => { $("pasteIn").value = ""; $("pasteMsg").textContent = ""; };
+
+$("clearFormBtn").onclick = () => { headers.forEach(h => { if (fields[h] && norm(h) !== "hoja") fields[h].value = ""; }); $("msg").textContent = ""; };
+$("save").onclick = async () => {
+  const obj = {};
+  headers.forEach(h => { obj[h] = (fields[h]?.value || "").trim(); });
+  if (!Object.values(obj).some(Boolean)) { $("msg").textContent = "Completá al menos un dato."; return; }
+  const sg = sigOf(obj, headers), fc = getDateCol();
+  if (sg.replace(/\|/g, "").trim()) {
+    const dup = rows.find(r => sigOf(r, headers) === sg && (!fc || norm(r[fc]) === norm(obj[fc])));
+    if (dup && !(await askConfirm("Ya existe un registro igual (mismo cliente, número y equipo" + (fc ? " y fecha" : "") + ").\n\n¿Guardar de todas formas?"))) { $("msg").textContent = "No se guardó: ya existía un registro igual."; return; }
+  }
+  rows.unshift(obj); added++;
+  const saved = save();
+  setupFilters(); render(); buildForm();
+  let txt = "Registro agregado en esta web ✓ (" + added + " cargados desde la web)";
+  if (getGsUrl()) {
+    const sync = await pushRowToGoogleSheets(obj);
+    txt = sync.sent
+      ? "Registro guardado y enviado a Google Sheets (el navegador no confirma la recepción; al recargar desde Google se verifica y, si no llegó, queda guardado acá)."
+      : "Registro guardado en esta web, pero NO se pudo enviar a Google Sheets" + (sync.error ? " (" + sync.error + ")" : "") + ". Queda guardado acá hasta que se sincronice.";
+  }
+  $("msg").textContent = saved ? txt : txt + " Atención: no se pudo guardar en el navegador.";
+};
+
+/* ---------- Reportes ---------- */
+function statCards() {
+  const stCol = getStatusCol(), total = rows.length;
+  if (!stCol) return [["Total registros", total], ["Realizados", "—"], ["Pendientes", "—"], ["Efectividad", "—"]];
+  const real = rows.filter(r => isDone(r[stCol])).length;
+  return [["Total registros", total], ["Realizados", real], ["Pendientes", total - real], ["Efectividad", total ? Math.round(real * 100 / total) + "%" : "—"]];
+}
+function buildKpi() {
+  const dateCol = headers.find(h => norm(h) === "fecha") || headers.find(h => norm(h).includes("fecha"));
+  const stCol = getStatusCol(), box = $("kpiBox");
+  if (!dateCol || !stCol) { box.hidden = true; return; }
+  const parsed = []; let bad = 0;
+  rows.forEach(r => { const dt = parseDate(r[dateCol]); if (dt) parsed.push({ dt, done: isDone(r[stCol]) }); else bad++; });
+  const months = [...new Set(parsed.map(p => p.dt.y + "-" + pad(p.dt.mo)))].sort().reverse();
+  if (!months.length) { box.hidden = true; return; }
+  box.hidden = false;
+  const mSel = $("kpiMonth"), prev = mSel.value;
+  mSel.innerHTML = "";
+  months.forEach(m => mSel.add(new Option(new Date(+m.slice(0, 4), +m.slice(5) - 1, 1).toLocaleDateString("es", { month: "long", year: "numeric" }), m)));
+  mSel.value = months.includes(prev) ? prev : months[0];
+  const byDay = new Map();
+  parsed.forEach(p => {
+    if (p.dt.y + "-" + pad(p.dt.mo) !== mSel.value) return;
+    const e = byDay.get(p.dt.d) || { der: 0, real: 0 };
+    e.der++; if (p.done) e.real++; byDay.set(p.dt.d, e);
+  });
+  const tb = $("kpiBody"); tb.innerHTML = ""; kpiData = [];
+  let TD = 0, TR = 0;
+  const addRow = (label, der, real, strong) => {
+    const pct = der ? Math.round(real * 100 / der) : 0, tr = document.createElement("tr");
+    kpiData.push([label, der, real, der - real, der ? real / der : "", der ? (real / der >= 0.8 ? "Sí" : "No") : ""]);
+    if (strong) tr.style.fontWeight = "700";
+    [label, der, real, der - real].forEach(v => tr.appendChild(mk("td", String(v))));
+    tr.appendChild(mk("td", der ? pct + "%" : "—", der ? (pct >= 80 ? "good" : pct >= 60 ? "warn" : "bad") : ""));
+    tb.appendChild(tr);
+  };
+  const ym = mSel.value.split("-");
+  [...byDay].sort((a, b) => a[0] - b[0]).forEach(([d, v]) => { TD += v.der; TR += v.real; addRow(pad(d) + "/" + ym[1] + "/" + ym[0], v.der, v.real); });
+  addRow("Total del mes", TD, TR, true);
+  $("kpiNote").textContent = "Efectividad = realizados ÷ derivados (filas de ese día), con columnas '" + dateCol + "' y '" + stCol + "'." +
+    (bad ? " " + bad + " fila(s) con fecha no válida no se cuentan." : "");
+}
+function buildReport() {
+  const has = headers.length > 0;
+  $("repEmpty").hidden = has; $("repBody").hidden = !has;
+  if (!has) return;
+  const cards = $("cards"); cards.innerHTML = "";
+  statCards().forEach(([l, v]) => { const c = mk("div", undefined, "card"); c.appendChild(mk("b", String(v))); c.appendChild(mk("span", l)); cards.appendChild(c); });
+  const sel = $("gby");
+  if (sel.dataset.sig !== headers.join("|")) {
+    sel.innerHTML = ""; headers.forEach(h => sel.add(new Option(h, h)));
+    sel.value = getStatusCol() || headers[0]; sel.dataset.sig = headers.join("|");
+  }
+  const g = new Map();
+  rows.forEach(r => { const k = canon(sel.value, r[sel.value]) || "(vacío)"; g.set(k, (g.get(k) || 0) + 1); });
+  const list = [...g].sort((a, b) => b[1] - a[1]), max = list.length ? list[0][1] : 1;
+  const tb = $("gbody"); tb.innerHTML = "";
+  list.slice(0, 200).forEach(([k, n]) => {
+    const tr = document.createElement("tr");
+    tr.appendChild(mk("td", k)); tr.appendChild(mk("td", String(n)));
+    tr.appendChild(mk("td", Math.round(n * 100 / rows.length) + "%"));
+    const td = mk("td", undefined, "barcell"), bar = mk("div", undefined, "bar2");
+    bar.style.width = (n * 100 / max) + "%"; td.appendChild(bar); tr.appendChild(td); tb.appendChild(tr);
+  });
+  buildKpi();
+  const rh = $("rhead"), rb = $("rbody"); rh.innerHTML = ""; rb.innerHTML = "";
+  const recent = rows.slice(0, Math.min(added, 15));
+  $("recentBox").hidden = !recent.length;
+  if (recent.length) {
+    const hr = document.createElement("tr"); headers.forEach(h => hr.appendChild(mk("th", h))); rh.appendChild(hr);
+    recent.forEach(r => { const tr = document.createElement("tr"); headers.forEach(h => tr.appendChild(mk("td", r[h] ?? ""))); rb.appendChild(tr); });
+  }
+}
+$("gby").onchange = buildReport;
+$("kpiMonth").onchange = buildKpi;
+
+/* ---------- Generador de texto ---------- */
+$("genNoteBtn").onclick = () => {
+  const mode = $("tMode").value, cli = $("tClient").value.trim(), eq = $("tEquip").value.trim(), diag = $("tDiag").value.trim(), act = $("tAction").value.trim();
+  if (!cli && !eq && !diag && !act) { $("noteOut").value = "Completá al menos un dato para armar el texto."; return; }
+  let title = "📋 *INFORME TÉCNICO*", actionLabel = "Resolución / Trabajo realizado", footer = "Quedo a disposición ante cualquier consulta.";
+  if (mode === "presupuesto") { title = "💼 *PRESUPUESTO DE SERVICIO TÉCNICO*"; actionLabel = "Propuesta / Repuestos / Importe"; footer = "Presupuesto sujeto a revisión y disponibilidad de repuestos."; }
+  else if (mode === "entrega") { title = "✅ *ACTA DE ENTREGA Y CONFORMIDAD*"; actionLabel = "Trabajo / Pruebas realizadas"; footer = "Equipo entregado operativo y probado."; }
+  $("noteOut").value = [title, cli ? "• Cliente: " + cli : "", eq ? "• Equipo: " + eq : "", diag ? "• Diagnóstico: " + diag : "", act ? "• " + actionLabel + ": " + act : "", footer].filter(Boolean).join("\n");
+};
+$("copyNoteBtn").onclick = () => {
+  if (!$("noteOut").value.trim()) return;
+  navigator.clipboard?.writeText($("noteOut").value).catch(() => {});
+  $("copyNoteBtn").textContent = "Copiado ✓"; setTimeout(() => { $("copyNoteBtn").textContent = "Copiar"; }, 1400);
+};
+$("clearNoteBtn").onclick = () => { ["tClient", "tEquip", "tDiag", "tAction", "noteOut"].forEach(id => { $(id).value = ""; }); };
+
+/* ---------- Informe formal: Word / PDF ---------- */
+const LOGO_B64 = "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";
+const INF_KEY = "st_inf";
+/*PURE-START*/
+const xe = s => String(s ?? "").replace(/[<>&"']/g, c => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&apos;" }[c]));
+const safeName = s => String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 40);
+
+function docxFiles(d) {
+  const NS = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"';
+  const run = (t, o = {}) => '<w:r><w:rPr>' + (o.b ? '<w:b/>' : '') + '<w:sz w:val="' + (o.sz || 24) + '"/>' + (o.u ? '<w:u w:val="single"/>' : '') + '</w:rPr><w:t xml:space="preserve">' + xe(t) + '</w:t></w:r>';
+  const para = (inner, pPr = "") => '<w:p><w:pPr>' + pPr + '</w:pPr>' + inner + '</w:p>';
+  const logo = '<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="1440000" cy="758571"/><wp:docPr id="1" name="Logo"/><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="0" name="logo.jpeg"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1440000" cy="758571"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>';
+  const b = '<w:top w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:left w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideH w:val="single" w:sz="4" w:space="0" w:color="000000"/><w:insideV w:val="single" w:sz="4" w:space="0" w:color="000000"/>';
+  const cell = (w, inner) => '<w:tc><w:tcPr><w:tcW w:w="' + w + '" w:type="dxa"/></w:tcPr>' + inner + '</w:tc>';
+  const noGap = '<w:spacing w:before="40" w:after="40"/>';
+  let tbl = '<w:tbl><w:tblPr><w:tblW w:w="8510" w:type="dxa"/><w:tblBorders>' + b + '</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="100" w:type="dxa"/><w:right w:w="100" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid><w:gridCol w:w="1800"/><w:gridCol w:w="6710"/></w:tblGrid>';
+  tbl += '<w:tr>' + cell(1800, para(run("CANTIDAD", { b: 1 }), noGap + '<w:jc w:val="center"/>')) + cell(6710, para(run("DESCRIPCIÓN", { b: 1 }), noGap + '<w:jc w:val="center"/>')) + '</w:tr>';
+  d.items.forEach(it => { tbl += '<w:tr>' + cell(1800, para(run(it.q), noGap + '<w:jc w:val="center"/>')) + cell(6710, para(run(it.d), noGap)) + '</w:tr>'; });
+  tbl += '</w:tbl>';
+  const body = (d.text || "").split(/\r?\n/).map(l => para(run(l), '<w:spacing w:after="0" w:line="300" w:lineRule="auto"/><w:ind w:left="142"/>')).join("");
+  const doc = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ' + NS + '><w:body>' +
+    para(logo, '<w:spacing w:after="240"/>') +
+    para('<w:r><w:tab/></w:r>' + run("INFORME POR SERVICIO TECNICO", { b: 1, sz: 26 }) + '<w:r><w:tab/></w:r>' + run("NRO:" + d.nro, { b: 1, sz: 26 }),
+      '<w:tabs><w:tab w:val="center" w:pos="4255"/><w:tab w:val="right" w:pos="8510"/></w:tabs><w:spacing w:after="240"/>') +
+    para(run("Escrito por: ", { b: 1, sz: 20 }) + run(d.by, { sz: 22 }), '<w:spacing w:after="160"/>') +
+    para(run("Cliente: ", { b: 1, sz: 20 }) + run(d.client, { sz: 22 }), '<w:spacing w:after="240"/>') +
+    tbl +
+    para("", '<w:spacing w:after="120"/>') +
+    para(run("INFORME", { b: 1, u: 1 }), '<w:spacing w:after="60"/>') +
+    body +
+    para(run("Fecha: " + d.date, { b: 1 }), '<w:spacing w:before="200"/><w:jc w:val="center"/>') +
+    '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1400" w:right="1700" w:bottom="1000" w:left="1700" w:header="720" w:footer="720" w:gutter="0"/></w:sectPr></w:body></w:document>';
+  const H = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+  return {
+    "[Content_Types].xml": H + '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpeg" ContentType="image/jpeg"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>',
+    "_rels/.rels": H + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>',
+    "word/_rels/document.xml.rels": H + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/logo.jpeg"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>',
+    "word/styles.xml": H + '<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:sz w:val="24"/><w:lang w:val="es-PY"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="120" w:line="259" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style></w:styles>',
+    "word/document.xml": doc
+  };
+}
+
+function makePdf(d, jsPDFCtor) {
+  const doc = new jsPDFCtor({ unit: "mm", format: "a4" });
+  const L = 30, R = 180, W = 150, C1 = 36, C2 = 114;
+  let y = 22;
+  doc.addImage("data:image/jpeg;base64," + LOGO_B64, "JPEG", L, y, 40, 21.1);
+  y += 21.1 + 14;
+  doc.setFont("helvetica", "bold"); doc.setFontSize(13);
+  doc.text("INFORME POR SERVICIO TECNICO", 100, y, { align: "center" });
+  doc.text("NRO:" + d.nro, R, y, { align: "right" });
+  y += 11;
+  const kv = (k, v) => {
+    doc.setFont("helvetica", "bold"); doc.setFontSize(10.5); doc.text(k, L, y);
+    const w = doc.getTextWidth(k + " ");
+    doc.setFont("helvetica", "normal"); doc.setFontSize(11); doc.text(String(v || ""), L + w, y);
+    y += 7.5;
+  };
+  kv("Escrito por:", d.by); kv("Cliente:", d.client);
+  y += 3;
+  doc.setLineWidth(0.25);
+  doc.setFont("helvetica", "bold"); doc.setFontSize(12);
+  doc.rect(L, y, C1, 8); doc.rect(L + C1, y, C2, 8);
+  doc.text("CANTIDAD", L + C1 / 2, y + 5.6, { align: "center" });
+  doc.text("DESCRIPCIÓN", L + C1 + C2 / 2, y + 5.6, { align: "center" });
+  y += 8;
+  doc.setFont("helvetica", "normal"); doc.setFontSize(11);
+  d.items.forEach(it => {
+    const lines = doc.splitTextToSize(String(it.d), C2 - 4);
+    const h = Math.max(7.5, lines.length * 5.2 + 3);
+    if (y + h > 280) { doc.addPage(); y = 20; }
+    doc.rect(L, y, C1, h); doc.rect(L + C1, y, C2, h);
+    doc.text(String(it.q), L + C1 / 2, y + h / 2 + 1.5, { align: "center" });
+    doc.text(lines, L + C1 + 2, y + 5.2);
+    y += h;
+  });
+  y += 10;
+  doc.setFont("helvetica", "bold"); doc.setFontSize(11.5);
+  doc.text("INFORME", L, y);
+  doc.line(L, y + 1, L + doc.getTextWidth("INFORME"), y + 1);
+  y += 7;
+  doc.setFont("helvetica", "normal"); doc.setFontSize(11.5);
+  String(d.text || "").split(/\r?\n/).forEach(p => {
+    const lines = doc.splitTextToSize(p || " ", W - 4);
+    lines.forEach(line => {
+      if (y > 282) { doc.addPage(); y = 20; }
+      doc.text(line, L + 3, y); y += 5.8;
+    });
+  });
+  y += 4;
+  if (y > 282) { doc.addPage(); y = 20; }
+  doc.setFont("helvetica", "bold");
+  doc.text("Fecha: " + d.date, (L + R) / 2, y, { align: "center" });
+  return doc;
+}
+/*PURE-END*/
+
+const iItems = [];
+function infMeta() { try { return JSON.parse(localStorage.getItem(INF_KEY) || "{}"); } catch (e) { return {}; } }
+function infSaveMeta(nro) { try { localStorage.setItem(INF_KEY, JSON.stringify({ by: $("iBy").value.trim(), nro })); } catch (e) {} }
+function nextNro(n) { const m = String(n || "").match(/^(\d+)$/); return m ? String(Number(m[1]) + 1).padStart(Math.max(3, m[1].length), "0") : ""; }
+function todayDMY() { const t = new Date(); return pad(t.getDate()) + "/" + pad(t.getMonth() + 1) + "/" + t.getFullYear(); }
+
+function addItemRow(q = "1", dsc = "") {
+  const row = mk("div", undefined, "tool-row");
+  const qi = document.createElement("input"); qi.type = "text"; qi.value = q; qi.title = "Cantidad"; qi.style.maxWidth = "90px";
+  const di = document.createElement("input"); di.type = "text"; di.value = dsc; di.placeholder = "Equipo / descripción"; di.style.flex = "1 1 260px";
+  const o = { qi, di };
+  const x = mk("button", "Quitar");
+  x.onclick = () => { if (iItems.length > 1) { iItems.splice(iItems.indexOf(o), 1); row.remove(); } };
+  iItems.push(o); row.append(qi, di, x); $("iItems").appendChild(row);
+}
+function resetInforme(keepNext = true) {
+  const m = infMeta();
+  $("iNro").value = keepNext ? nextNro(m.nro) : $("iNro").value;
+  $("iBy").value = m.by || "";
+  $("iClient").value = ""; $("iDate").value = todayDMY(); $("iText").value = ""; $("iMsg").textContent = "";
+  $("iItems").innerHTML = ""; iItems.length = 0; addItemRow();
+}
+function infData() {
+  return {
+    nro: $("iNro").value.trim() || "—", by: $("iBy").value.trim(), client: $("iClient").value.trim(),
+    date: $("iDate").value.trim() || todayDMY(), text: $("iText").value.trim(),
+    items: iItems.map(o => ({ q: o.qi.value.trim() || "1", d: o.di.value.trim() })).filter(it => it.d)
+  };
+}
+function infCheck(d) {
+  if (!d.client) return "Completá el cliente.";
+  if (!d.items.length) return "Agregá al menos un equipo con su descripción.";
+  if (!d.text) return "Escribí el texto del informe.";
+  return "";
+}
+function downloadBlob(blob, name) {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+const infFile = (d, ext) => "Informe_" + safeName(d.nro) + "_" + safeName(d.client) + "." + ext;
+
+$("iAddItem").onclick = () => addItemRow("1", "");
+$("iClear").onclick = () => resetInforme(true);
+$("iFromNote").onclick = () => {
+  if ($("tClient").value.trim()) $("iClient").value = $("tClient").value.trim();
+  if ($("tEquip").value.trim() && iItems[0]) iItems[0].di.value = $("tEquip").value.trim();
+  const diag = $("tDiag").value.trim(), act = $("tAction").value.trim();
+  const parts = [diag ? "Diagnóstico: " + diag + "." : "", act ? "Trabajo realizado: " + act + "." : ""].filter(Boolean);
+  if (parts.length) $("iText").value = parts.join(" ");
+  $("iMsg").textContent = "Datos traídos del generador. Revisalos antes de descargar.";
+};
+$("iWord").onclick = async () => {
+  const d = infData(), err = infCheck(d);
+  if (err) { $("iMsg").textContent = err; return; }
+  if (typeof JSZip === "undefined") { $("iMsg").textContent = "No cargó la librería para Word (JSZip). Revisá tu conexión a internet."; return; }
+  try {
+    const zip = new JSZip(), files = docxFiles(d);
+    Object.keys(files).forEach(p => zip.file(p, files[p]));
+    zip.file("word/media/logo.jpeg", LOGO_B64, { base64: true });
+    const blob = await zip.generateAsync({ type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", compression: "DEFLATE" });
+    downloadBlob(blob, infFile(d, "docx"));
+    infSaveMeta(d.nro); $("iMsg").textContent = "Word generado ✓ (" + infFile(d, "docx") + ")";
+  } catch (e) { $("iMsg").textContent = "No pude generar el Word: " + e.message; }
+};
+$("iPdf").onclick = () => {
+  const d = infData(), err = infCheck(d);
+  if (err) { $("iMsg").textContent = err; return; }
+  if (!window.jspdf) { $("iMsg").textContent = "No cargó la librería para PDF (jsPDF). Revisá tu conexión a internet."; return; }
+  try {
+    makePdf(d, window.jspdf.jsPDF).save(infFile(d, "pdf"));
+    infSaveMeta(d.nro); $("iMsg").textContent = "PDF generado ✓ (" + infFile(d, "pdf") + ")";
+  } catch (e) { $("iMsg").textContent = "No pude generar el PDF: " + e.message; }
+};
+
+/* Botón "Armar informe" del modal de detalle: precarga el informe con los datos de la fila */
+$("dlgReportBtn").onclick = () => {
+  const r = rows[selectedRowIndex]; if (!r) return;
+  const col = re => headers.find(h => re.test(norm(h)));
+  const get = re => { const c = col(re); return c ? String(r[c] ?? "").trim() : ""; };
+  resetInforme(true);
+  $("iClient").value = get(/^cliente$/);
+  if (get(/^tecnico$/)) $("iBy").value = get(/^tecnico$/);
+  const f = parseDate(get(/^fecha$/)); if (f) $("iDate").value = pad(f.d) + "/" + pad(f.mo) + "/" + f.y;
+  iItems[0].di.value = get(/^(equipo|equipo.*sistema|sistema)$/) || get(/equipo|sistema/);
+  $("iText").value = [get(/asunto/), get(/procedimiento|proceso|detalle/), get(/observ/)].filter(Boolean).join(". ").replace(/\.\.+/g, ".");
+  $("iMsg").textContent = "Datos precargados desde la fila. Completá o corregí el texto y descargá.";
+  $("rowDlg").close();
+  show("informes");
+};
+resetInforme(true);
+
+/* ---------- Presupuesto formal: Word / PDF ---------- */
+const PRES_KEY = "st_pres";
+/*PURE2-START*/
+const money = n => String(Math.round(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const parseMoney = s => { const t = String(s ?? "").replace(/[^\d,.-]/g, "").replace(/\./g, "").replace(",", "."); const n = parseFloat(t); return isNaN(n) ? 0 : n; };
+const qtyOf = q => parseFloat(String(q).replace(",", ".")) || 1;
+const presTotal = d => d.items.reduce((a, it) => a + qtyOf(it.q) * it.p, 0);
+
+function docxFilesP(d) {
+  const base = docxFiles({ nro: "", by: "", client: "", date: "", items: [], text: "" });
+  const bx = base["word/document.xml"];
+  const logo = bx.match(/<w:r><w:drawing>[\s\S]*?<\/w:drawing><\/w:r>/)[0];
+  const NS = bx.match(/<w:document ([^>]*)>/)[1];
+  const run = (t, o = {}) => '<w:r><w:rPr>' + (o.b ? '<w:b/>' : '') + '<w:sz w:val="' + (o.sz || 22) + '"/>' + (o.u ? '<w:u w:val="single"/>' : '') + '</w:rPr><w:t xml:space="preserve">' + xe(t) + '</w:t></w:r>';
+  const para = (inner, pPr = "") => '<w:p><w:pPr>' + pPr + '</w:pPr>' + inner + '</w:p>';
+  const bd = ["top", "left", "bottom", "right", "insideH", "insideV"].map(s => '<w:' + s + ' w:val="single" w:sz="4" w:space="0" w:color="000000"/>').join("");
+  const cell = (w, inner, span) => '<w:tc><w:tcPr><w:tcW w:w="' + w + '" w:type="dxa"/>' + (span ? '<w:gridSpan w:val="' + span + '"/>' : '') + '</w:tcPr>' + inner + '</w:tc>';
+  const gap = '<w:spacing w:before="40" w:after="40"/>', C = '<w:jc w:val="center"/>', Rt = '<w:jc w:val="right"/>';
+  const cur = d.cur || "Gs.", total = presTotal(d);
+  let tbl = '<w:tbl><w:tblPr><w:tblW w:w="8510" w:type="dxa"/><w:tblBorders>' + bd + '</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="100" w:type="dxa"/><w:right w:w="100" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid><w:gridCol w:w="1100"/><w:gridCol w:w="4310"/><w:gridCol w:w="1550"/><w:gridCol w:w="1550"/></w:tblGrid>';
+  tbl += '<w:tr>' + cell(1100, para(run("CANT.", { b: 1 }), gap + C)) + cell(4310, para(run("DESCRIPCIÓN", { b: 1 }), gap + C)) + cell(1550, para(run("PRECIO UNIT.", { b: 1 }), gap + C)) + cell(1550, para(run("TOTAL", { b: 1 }), gap + C)) + '</w:tr>';
+  d.items.forEach(it => {
+    tbl += '<w:tr>' + cell(1100, para(run(it.q), gap + C)) + cell(4310, para(run(it.d), gap)) + cell(1550, para(run(money(it.p)), gap + Rt)) + cell(1550, para(run(money(qtyOf(it.q) * it.p)), gap + Rt)) + '</w:tr>';
+  });
+  tbl += '<w:tr>' + cell(6960, para(run("TOTAL (" + cur + ")", { b: 1 }), gap + Rt), 3) + cell(1550, para(run(money(total), { b: 1 }), gap + Rt)) + '</w:tr></w:tbl>';
+  const notes = (d.note || "").trim()
+    ? para(run("Observaciones", { b: 1, u: 1 }), '<w:spacing w:before="200" w:after="60"/>') + d.note.split(/\r?\n/).map(l => para(run(l), '<w:spacing w:after="0"/><w:ind w:left="142"/>')).join("") : "";
+  const valid = para(run("Validez de la oferta: " + (d.valid || "7") + " días. Presupuesto sujeto a revisión y disponibilidad de repuestos.", { sz: 20 }), '<w:spacing w:before="240"/>');
+  base["word/document.xml"] = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ' + NS + '><w:body>' +
+    para(logo, '<w:spacing w:after="240"/>') +
+    para('<w:r><w:tab/></w:r>' + run("PRESUPUESTO DE SERVICIO TECNICO", { b: 1, sz: 26 }) + '<w:r><w:tab/></w:r>' + run("NRO:" + d.nro, { b: 1, sz: 26 }), '<w:tabs><w:tab w:val="center" w:pos="4255"/><w:tab w:val="right" w:pos="8510"/></w:tabs><w:spacing w:after="240"/>') +
+    para(run("Cliente: ", { b: 1, sz: 20 }) + run(d.client, { sz: 22 }), '<w:spacing w:after="80"/>') +
+    para(run("Fecha: ", { b: 1, sz: 20 }) + run(d.date, { sz: 22 }), '<w:spacing w:after="240"/>') +
+    tbl + notes + valid +
+    '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1400" w:right="1700" w:bottom="1000" w:left="1700" w:header="720" w:footer="720" w:gutter="0"/></w:sectPr></w:body></w:document>';
+  return base;
+}
+
+function makePresPdf(d, Ctor) {
+  const doc = new Ctor({ unit: "mm", format: "a4" });
+  const L = 30, R = 180, W = [18, 72, 30, 30], cur = d.cur || "Gs.";
+  let y = 22;
+  doc.addImage("data:image/jpeg;base64," + LOGO_B64, "JPEG", L, y, 40, 21.1);
+  y += 21.1 + 14;
+  doc.setFont("helvetica", "bold"); doc.setFontSize(13);
+  doc.text("PRESUPUESTO DE SERVICIO TECNICO", 100, y, { align: "center" });
+  doc.text("NRO:" + d.nro, R, y, { align: "right" });
+  y += 11;
+  const kv = (k, v) => { doc.setFont("helvetica", "bold"); doc.setFontSize(10.5); doc.text(k, L, y); const w = doc.getTextWidth(k + " "); doc.setFont("helvetica", "normal"); doc.setFontSize(11); doc.text(String(v || ""), L + w, y); y += 7.5; };
+  kv("Cliente:", d.client); kv("Fecha:", d.date);
+  y += 3; doc.setLineWidth(0.25);
+  const xs = [L, L + W[0], L + W[0] + W[1], L + W[0] + W[1] + W[2]];
+  doc.setFont("helvetica", "bold"); doc.setFontSize(10);
+  ["CANT.", "DESCRIPCIÓN", "PRECIO UNIT.", "TOTAL"].forEach((t, i) => { doc.rect(xs[i], y, W[i], 8); doc.text(t, xs[i] + W[i] / 2, y + 5.4, { align: "center" }); });
+  y += 8;
+  doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
+  d.items.forEach(it => {
+    const lines = doc.splitTextToSize(String(it.d), W[1] - 4), h = Math.max(7.5, lines.length * 5 + 3);
+    if (y + h > 275) { doc.addPage(); y = 20; }
+    W.forEach((w, i) => doc.rect(xs[i], y, w, h));
+    doc.text(String(it.q), xs[0] + W[0] / 2, y + 5, { align: "center" });
+    doc.text(lines, xs[1] + 2, y + 5);
+    doc.text(money(it.p), xs[2] + W[2] - 2, y + 5, { align: "right" });
+    doc.text(money(qtyOf(it.q) * it.p), xs[3] + W[3] - 2, y + 5, { align: "right" });
+    y += h;
+  });
+  if (y + 9 > 275) { doc.addPage(); y = 20; }
+  doc.setFont("helvetica", "bold");
+  doc.rect(L, y, W[0] + W[1] + W[2], 8); doc.rect(xs[3], y, W[3], 8);
+  doc.text("TOTAL (" + cur + ")", xs[3] - 2, y + 5.4, { align: "right" });
+  doc.text(money(presTotal(d)), xs[3] + W[3] - 2, y + 5.4, { align: "right" });
+  y += 8 + 8;
+  if ((d.note || "").trim()) {
+    doc.setFontSize(11); doc.text("Observaciones", L, y); doc.line(L, y + 1, L + doc.getTextWidth("Observaciones"), y + 1); y += 6;
+    doc.setFont("helvetica", "normal");
+    d.note.split(/\r?\n/).forEach(p => doc.splitTextToSize(p || " ", 146).forEach(line => { if (y > 282) { doc.addPage(); y = 20; } doc.text(line, L + 3, y); y += 5.6; }));
+    y += 4;
+  }
+  doc.setFont("helvetica", "normal"); doc.setFontSize(10);
+  doc.splitTextToSize("Validez de la oferta: " + (d.valid || "7") + " días. Presupuesto sujeto a revisión y disponibilidad de repuestos.", 150).forEach(line => { if (y > 285) { doc.addPage(); y = 20; } doc.text(line, L, y); y += 5; });
+  return doc;
+}
+/*PURE2-END*/
+
+async function makeDocxBlob(files) {
+  const zip = new JSZip();
+  Object.keys(files).forEach(p => zip.file(p, files[p]));
+  zip.file("word/media/logo.jpeg", LOGO_B64, { base64: true });
+  return zip.generateAsync({ type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", compression: "DEFLATE" });
+}
+const pItems = [];
+function presMeta() { try { return JSON.parse(localStorage.getItem(PRES_KEY) || "{}"); } catch (e) { return {}; } }
+function readPres() {
+  return {
+    nro: $("pNro").value.trim() || "—", client: $("pClient").value.trim(), date: $("pDate").value.trim() || todayDMY(),
+    cur: $("pCur").value.trim() || "Gs.", valid: $("pVal").value.trim() || "7", note: $("pNote").value,
+    items: pItems.map(o => ({ q: o.qi.value.trim() || "1", d: o.di.value.trim(), p: parseMoney(o.pi.value) })).filter(it => it.d)
+  };
+}
+function updPTotal() { const d = readPres(); $("pTotal").textContent = "Total: " + d.cur + " " + money(presTotal(d)); }
+function addPItem(q = "1", dsc = "", pr = "") {
+  const row = mk("div", undefined, "tool-row");
+  const qi = document.createElement("input"); qi.type = "text"; qi.value = q; qi.title = "Cantidad"; qi.style.maxWidth = "80px";
+  const di = document.createElement("input"); di.type = "text"; di.value = dsc; di.placeholder = "Descripción (equipo, repuesto o trabajo)"; di.style.flex = "1 1 240px";
+  const pi = document.createElement("input"); pi.type = "text"; pi.value = pr; pi.placeholder = "Precio unitario"; pi.title = "Precio unitario (sin decimales)"; pi.style.maxWidth = "150px";
+  const o = { qi, di, pi }, x = mk("button", "Quitar");
+  x.onclick = () => { if (pItems.length > 1) { pItems.splice(pItems.indexOf(o), 1); row.remove(); updPTotal(); } };
+  [qi, di, pi].forEach(i => i.addEventListener("input", updPTotal));
+  pItems.push(o); row.append(qi, di, pi, x); $("pItems").appendChild(row);
+}
+function resetPres() {
+  const m = presMeta();
+  $("pNro").value = nextNro(m.nro); $("pClient").value = ""; $("pDate").value = todayDMY(); $("pNote").value = ""; $("pMsg").textContent = "";
+  $("pItems").innerHTML = ""; pItems.length = 0; addPItem(); updPTotal();
+}
+function presCheck(d) { return !d.client ? "Completá el cliente." : !d.items.length ? "Agregá al menos un ítem con su descripción." : ""; }
+const presFile = (d, ext) => "Presupuesto_" + safeName(d.nro) + "_" + safeName(d.client) + "." + ext;
+function presSaveMeta(nro) { try { localStorage.setItem(PRES_KEY, JSON.stringify({ nro })); } catch (e) {} }
+$("pAddItem").onclick = () => addPItem("1", "", "");
+["pCur", "pVal"].forEach(id => $(id).addEventListener("input", updPTotal));
+$("pClear").onclick = resetPres;
+$("pWord").onclick = async () => {
+  const d = readPres(), err = presCheck(d);
+  if (err) { $("pMsg").textContent = err; return; }
+  if (typeof JSZip === "undefined") { $("pMsg").textContent = "No cargó la librería para Word (JSZip). Revisá tu conexión a internet."; return; }
+  try { downloadBlob(await makeDocxBlob(docxFilesP(d)), presFile(d, "docx")); presSaveMeta(d.nro); $("pMsg").textContent = "Word generado ✓ (" + presFile(d, "docx") + ")"; }
+  catch (e) { $("pMsg").textContent = "No pude generar el Word: " + e.message; }
+};
+$("pPdf").onclick = () => {
+  const d = readPres(), err = presCheck(d);
+  if (err) { $("pMsg").textContent = err; return; }
+  if (!window.jspdf) { $("pMsg").textContent = "No cargó la librería para PDF (jsPDF). Revisá tu conexión a internet."; return; }
+  try { makePresPdf(d, window.jspdf.jsPDF).save(presFile(d, "pdf")); presSaveMeta(d.nro); $("pMsg").textContent = "PDF generado ✓ (" + presFile(d, "pdf") + ")"; }
+  catch (e) { $("pMsg").textContent = "No pude generar el PDF: " + e.message; }
+};
+resetPres();
+
+/* ---------- Panel "Hoy", antigüedad de pendientes, WhatsApp y exportación de KPI ---------- */
+let kpiData = [], dlgPhone = "";
+function getDateCol() { return headers.find(x => norm(x) === "fecha") || headers.find(x => norm(x).includes("fecha")) || null; }
+/*PURE4-START*/
+function daysAgo(dt, now) { const n = now || new Date(); return Math.floor((new Date(n.getFullYear(), n.getMonth(), n.getDate()) - new Date(dt.y, dt.mo - 1, dt.d)) / 864e5); }
+/* Primer teléfono del texto, en formato internacional de Paraguay (595...) */
+function phoneFrom(text) {
+  const m = String(text ?? "").match(/\+?\d[\d\s-]{6,}\d/);
+  if (!m) return "";
+  let d = m[0].replace(/\D/g, "");
+  if (d.startsWith("595")) return d;
+  if (d.startsWith("0")) d = d.slice(1);
+  return "595" + d;
+}
+/*PURE4-END*/
+function phoneOf(r) {
+  const c = headers.find(x => /^(numero|nro|telefono|celular|contacto)$/.test(norm(x)));
+  return c ? phoneFrom(r[c]) : "";
+}
+function ageOf(r) {
+  const dc = getDateCol(), sc = getStatusCol();
+  if (!dc || !sc || isDone(r[sc])) return null;
+  const dt = parseDate(r[dc]);
+  return dt ? daysAgo(dt) : null;
+}
+function buildToday() {
+  const box = $("todayCards"); box.innerHTML = "";
+  const dc = getDateCol(), sc = getStatusCol(), t = new Date();
+  let hoy = 0, pend = 0, viejos = 0, medios = 0;
+  rows.forEach(r => {
+    const dt = dc ? parseDate(r[dc]) : null;
+    if (dt && dt.y === t.getFullYear() && dt.mo === t.getMonth() + 1 && dt.d === t.getDate()) hoy++;
+    if (sc && !isDone(r[sc])) { pend++; const a = ageOf(r); if (a !== null && a > 7) viejos++; else if (a !== null && a > 3) medios++; }
+  });
+  const cal = agenda.filter(a => !a.done && a.date === todayKey()).length;
+  [["Registros de hoy", dc ? hoy : "—"], ["Pendientes", sc ? pend : "—"], ["Pendientes hace +7 días", sc ? viejos : "—"], ["Calendario de hoy", cal]].forEach(([l, v]) => {
+    const c = mk("div", undefined, "card"); c.appendChild(mk("b", String(v))); c.appendChild(mk("span", l)); box.appendChild(c);
+  });
+  $("todayNote").textContent = (viejos || medios) ? "En la tabla, la franja naranja marca pendientes de hace más de 3 días y la roja de hace más de 7." : "";
+  let last = null; try { last = localStorage.getItem("st_last_bk"); } catch (e) {}
+  const dias = last ? Math.floor((Date.now() - Number(last)) / 864e5) : null;
+  const nudge = rows.length > 0 && (dias === null || dias >= 7);
+  $("bkNudge").hidden = !nudge;
+  if (nudge) $("bkNudgeText").textContent = dias === null ? "Todavía no descargaste ningún respaldo de tus datos." : "Hace " + dias + " días que no descargás un respaldo de tus datos.";
+}
+$("bkNudgeBtn").onclick = () => $("bkBtn").click();
+$("dlgWaBtn").onclick = () => { if (dlgPhone) window.open("https://wa.me/" + dlgPhone, "_blank", "noopener"); };
+$("dlgTelBtn").onclick = () => { if (dlgPhone) location.href = "tel:+" + dlgPhone; };
+$("kpiExport").onclick = () => {
+  if (!kpiData.length || typeof XLSX === "undefined") return;
+  const aoa = [["Día", "Derivados", "Realizados", "Pendientes", "Efectividad", "Meta 80%"]].concat(kpiData);
+  const ws = XLSX.utils.aoa_to_sheet(aoa);
+  for (let i = 1; i < aoa.length; i++) { const c = ws["E" + (i + 1)]; if (c && typeof c.v === "number") c.z = "0%"; }
+  ws["!cols"] = [{ wch: 14 }, { wch: 11 }, { wch: 11 }, { wch: 11 }, { wch: 12 }, { wch: 10 }];
+  const wb2 = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb2, ws, "KPI");
+  XLSX.writeFile(wb2, "KPI_" + ($("kpiMonth").value || "mes") + ".xlsx");
+};
+
+/* ---------- Versatilidad: columnas, rango de fechas, exportar vista y pegar filas ---------- */
+let lastList = [], hiddenCols = {}, customCols = {};
+try { hiddenCols = JSON.parse(localStorage.getItem("st_hidden") || "{}") || {}; customCols = JSON.parse(localStorage.getItem("st_custom") || "{}") || {}; } catch (e) {}
+function saveHidden() { try { localStorage.setItem("st_hidden", JSON.stringify(hiddenCols)); } catch (e) {} }
+function saveCustom() { try { localStorage.setItem("st_custom", JSON.stringify(customCols)); } catch (e) {} }
+function visCols() { const hid = new Set(hiddenCols[cur] || []); return headers.filter(x => !hid.has(x)); }
+function ensureCustom() {
+  (customCols[cur] || []).forEach(n => {
+    if (!headers.length || headers.some(x => norm(x) === norm(n))) return;
+    const hi = headers.findIndex(x => norm(x) === "hoja");
+    headers.splice(hi >= 0 ? hi : headers.length, 0, n);
+    rows.forEach(r => { if (r[n] === undefined) r[n] = ""; });
+  });
+}
+function openColDlg() {
+  const box = $("colList"); box.innerHTML = "";
+  const hid = new Set(hiddenCols[cur] || []);
+  headers.forEach(x => {
+    const lab = mk("label", undefined, "item"), cb = document.createElement("input");
+    cb.type = "checkbox"; cb.checked = !hid.has(x);
+    cb.onchange = () => { const s = new Set(hiddenCols[cur] || []); if (cb.checked) s.delete(x); else s.add(x); hiddenCols[cur] = [...s]; saveHidden(); render(); };
+    lab.appendChild(cb); lab.appendChild(mk("span", x, "t")); box.appendChild(lab);
+  });
+  if (!headers.length) box.appendChild(mk("p", "Primero cargá datos para poder elegir columnas.", "count"));
+  if (!$("colDlg").open) { $("colMsg").textContent = ""; $("colDlg").showModal(); }
+}
+$("colBtn").onclick = openColDlg;
+$("colClose").onclick = () => $("colDlg").close();
+$("colAdd").onclick = () => {
+  const name = $("colNew").value.trim();
+  if (!name) return;
+  if (!headers.length) { $("colMsg").textContent = "Primero cargá datos."; return; }
+  if (headers.some(x => norm(x) === norm(name))) { $("colMsg").textContent = "Ya existe una columna con ese nombre."; return; }
+  const hi = headers.findIndex(x => norm(x) === "hoja");
+  headers.splice(hi >= 0 ? hi : headers.length, 0, name);
+  rows.forEach(r => { if (r[name] === undefined) r[name] = ""; });
+  customCols[cur] = (customCols[cur] || []).concat(name); saveCustom();
+  $("colNew").value = ""; save(); refreshAll(); openColDlg();
+  $("colMsg").textContent = "Columna “" + name + "” agregada. Se completa desde Editar o Nuevo servicio.";
+};
+$("colNew").onkeydown = e => { if (e.key === "Enter") $("colAdd").click(); };
+
+const ymd = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+$("rHoy").onclick = () => { const t = new Date(); $("dFrom").value = ymd(t); $("dTo").value = ymd(t); render(); };
+$("r7").onclick = () => { const t = new Date(); $("dFrom").value = ymd(new Date(t.getFullYear(), t.getMonth(), t.getDate() - 6)); $("dTo").value = ymd(t); render(); };
+$("rMes").onclick = () => { const t = new Date(); $("dFrom").value = ymd(new Date(t.getFullYear(), t.getMonth(), 1)); $("dTo").value = ymd(t); render(); };
+$("dFrom").onchange = render; $("dTo").onchange = render;
+
+$("exportViewBtn").onclick = () => {
+  if (!lastList.length || typeof XLSX === "undefined") return;
+  const cols = visCols();
+  const data = lastList.map(r => { const o = {}; cols.forEach(c => { o[c] = r[c] ?? ""; }); return o; });
+  const book = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(book, XLSX.utils.json_to_sheet(data, { header: cols }), "Vista");
+  XLSX.writeFile(book, "servicio_tecnico_vista_" + cur + "_" + new Date().toISOString().slice(0, 10) + ".xlsx");
+};
+
+/* Pegar filas copiadas de Excel / Google Sheets (con la fila de títulos) */
+function addPastedRows(text) {
+  if (typeof XLSX === "undefined") return "No cargó la librería XLSX. Revisá tu conexión a internet.";
+  const aoa = String(text || "").split(/\r?\n/).filter(l => l.trim()).map(l => l.split("\t"));
+  if (aoa.length < 2) return "Pegá la fila de títulos y al menos una fila de datos, copiadas desde Excel o Google Sheets.";
+  const { objs, found, first } = sheetToObjects(XLSX.utils.aoa_to_sheet(aoa));
+  if (!found) return "No encontré la fila de títulos con Fecha y Cliente. Copiá también esa fila.";
+  if (!objs.length) return "No encontré filas de datos debajo de los títulos.";
+  const k = classify(first);
+  stash();
+  const ds = datasets[k], hs = ds.headers.slice();
+  first.forEach(x => { if (!hs.some(y => norm(y) === norm(x))) { const hi = hs.findIndex(y => norm(y) === "hoja"); hs.splice(hi >= 0 ? hi : hs.length, 0, x); } });
+  if (!hs.some(y => norm(y) === "hoja")) hs.push("Hoja");
+  const fc = hs.find(y => norm(y) === "fecha");
+  const keyOfRow = r => sigOf(r, hs) + "|" + norm(fc ? pickKey(r, fc) : "");
+  const exist = new Set(ds.rows.map(keyOfRow));
+  const nuevos = []; let dup = 0;
+  objs.forEach(o => {
+    const r = {}; hs.forEach(x => { r[x] = String(pickKey(o, x)).trim(); }); r.Hoja = "Pegado";
+    const key = keyOfRow(r);
+    if (exist.has(key)) { dup++; return; }
+    exist.add(key); nuevos.push(r);
+  });
+  ds.rows.forEach(r => hs.forEach(x => { if (r[x] === undefined) r[x] = ""; }));
+  ds.headers = hs; ds.rows = nuevos.concat(ds.rows); ds.added = (ds.added || 0) + nuevos.length;
+  if (k !== cur) { cur = k; $("ds").value = k; $("gsUrl").value = storedGsUrl(cur); paintGsPlaceholder(); }
+  ({ headers, rows, added } = datasets[cur]);
+  save(); showApp(); refreshAll();
+  return "Agregué " + nuevos.length + " fila(s) a " + k + (dup ? " (" + dup + " ya existían y se omitieron)" : "") + ".";
+}
+$("pasteTableBtn").onclick = () => { $("pasteTableMsg").textContent = addPastedRows($("pasteTable").value); };
+$("pasteTableClear").onclick = () => { $("pasteTable").value = ""; $("pasteTableMsg").textContent = ""; };
+
+/* ---------- Calendario ---------- */
+let agenda = [], calY = new Date().getFullYear(), calM = new Date().getMonth();
+const keyOf = (y, m, d) => y + "-" + pad(m + 1) + "-" + pad(d);
+const todayKey = () => { const t = new Date(); return keyOf(t.getFullYear(), t.getMonth(), t.getDate()); };
+const fmtDay = k => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d).toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long", year: "numeric" }); };
+const fmtShort = k => k.split("-").reverse().join("/");
+const byTime = (a, b) => (a.time || "").localeCompare(b.time || "");
+let selDate = todayKey();
+function saveAgenda() { try { localStorage.setItem(AGENDA_KEY, JSON.stringify(agenda)); } catch (e) {} }
+try { const a = JSON.parse(localStorage.getItem(AGENDA_KEY) || "[]"); if (Array.isArray(a)) agenda = a; } catch (e) {}
+
+function itemRow(a, showDate) {
+  const row = mk("div", undefined, "item" + (a.done ? " done" : ""));
+  const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = !!a.done; cb.title = "Marcar como hecho";
+  cb.onchange = () => { a.done = cb.checked; saveAgenda(); buildCalendar(); };
+  row.appendChild(cb);
+  if (showDate) row.appendChild(mk("span", fmtShort(a.date), "dt" + (a.date < todayKey() && !a.done ? " late" : "")));
+  row.appendChild(mk("span", (a.time ? a.time + " · " : "") + a.text, "t"));
+  const x = mk("button", "Borrar"); x.onclick = () => { agenda = agenda.filter(z => z !== a); saveAgenda(); buildCalendar(); };
+  row.appendChild(x);
+  return row;
+}
+function buildCalendar() {
+  $("calTitle").textContent = new Date(calY, calM, 1).toLocaleDateString("es", { month: "long", year: "numeric" });
+  const cal = $("cal"); cal.innerHTML = "";
+  ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].forEach(d => cal.appendChild(mk("div", d, "dow")));
+  const offset = (new Date(calY, calM, 1).getDay() + 6) % 7, tk = todayKey();
+  for (let i = 0; i < 42; i++) {
+    const d = new Date(calY, calM, 1 - offset + i), k = keyOf(d.getFullYear(), d.getMonth(), d.getDate());
+    const items = agenda.filter(a => a.date === k).sort(byTime);
+    const b = document.createElement("button");
+    b.className = "day" + (d.getMonth() !== calM ? " out" : "") + (k === tk ? " today" : "") + (k === selDate ? " sel" : "");
+    b.appendChild(mk("span", String(d.getDate()), "n"));
+    items.slice(0, 2).forEach(a => b.appendChild(mk("span", (a.time ? a.time + " " : "") + a.text, "chip" + (a.done ? " done" : ""))));
+    if (items.length > 2) b.appendChild(mk("span", "+" + (items.length - 2) + " más", "chip"));
+    if (items.length) b.appendChild(mk("span", String(items.length), "cnt"));
+    b.onclick = () => { selDate = k; buildCalendar(); };
+    cal.appendChild(b);
+  }
+  $("dayTitle").textContent = fmtDay(selDate);
+  const dl = $("dayList"); dl.innerHTML = "";
+  const todays = agenda.filter(a => a.date === selDate).sort(byTime);
+  if (!todays.length) dl.appendChild(mk("p", "No hay pendientes este día.", "count"));
+  todays.forEach(a => dl.appendChild(itemRow(a, false)));
+  const up = $("upcoming"); up.innerHTML = "";
+  const pend = agenda.filter(a => !a.done).sort((a, b) => (a.date + (a.time || "")).localeCompare(b.date + (b.time || "")));
+  if (!pend.length) up.appendChild(mk("p", "No tenés pendientes.", "count"));
+  pend.slice(0, 30).forEach(a => up.appendChild(itemRow(a, true)));
+}
+$("aAdd").onclick = () => {
+  const text = $("aText").value.trim();
+  if (!text) { $("aText").focus(); return; }
+  agenda.push({ id: Date.now(), date: selDate, time: $("aTime").value, text, done: false, notified: false });
+  $("aText").value = ""; $("aTime").value = ""; saveAgenda(); buildCalendar();
+};
+$("aText").onkeydown = e => { if (e.key === "Enter") $("aAdd").click(); };
+$("prev").onclick = () => { calM--; if (calM < 0) { calM = 11; calY--; } buildCalendar(); };
+$("next").onclick = () => { calM++; if (calM > 11) { calM = 0; calY++; } buildCalendar(); };
+$("todayBtn").onclick = () => { const t = new Date(); calY = t.getFullYear(); calM = t.getMonth(); selDate = todayKey(); buildCalendar(); };
+
+/* ---------- Avisos de voz ---------- */
+let voiceOn = false;
+try { voiceOn = localStorage.getItem("st_voice") === "1"; } catch (e) {}
+function paintVoice() {
+  $("voiceBtn").textContent = voiceOn ? "🔔 Avisos de voz: activados" : "🔕 Avisos de voz: desactivados";
+  $("voiceBtn").className = voiceOn ? "primary" : "";
+  $("voiceNote").textContent = "Avisa 5 minutos antes de la hora de cada pendiente. La página tiene que estar abierta.";
+}
+function speak(text) {
+  try {
+    if (!("speechSynthesis" in window)) return;
+    const u = new SpeechSynthesisUtterance(text);
+    const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.toLowerCase().startsWith("es"));
+    if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "es-ES";
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+$("voiceBtn").onclick = () => {
+  voiceOn = !voiceOn;
+  try { localStorage.setItem("st_voice", voiceOn ? "1" : "0"); } catch (e) {}
+  paintVoice(); if (voiceOn) speak("Avisos de voz activados");
+};
+function checkAlerts() {
+  const now = Date.now(); let changed = false;
+  agenda.forEach(a => {
+    if (a.done || a.notified || !a.time) return;
+    const [y, m, d] = a.date.split("-").map(Number), [hh, mm] = a.time.split(":").map(Number);
+    const diff = new Date(y, m - 1, d, hh, mm).getTime() - now;
+    if (diff <= 5 * 60000 && diff > -2 * 60000) {
+      a.notified = true; changed = true;
+      const min = Math.max(0, Math.round(diff / 60000));
+      const when = min > 0 ? "en " + min + (min === 1 ? " minuto" : " minutos") : "ahora";
+      const line = "⏰ " + a.time + " · " + a.text + " (" + when + ")";
+      $("alertText").textContent = ($("alertBar").hidden ? "" : $("alertText").textContent + "  |  ") + line;
+      $("alertBar").hidden = false;
+      if (voiceOn) speak("Atención. " + a.text + ", " + when);
+    }
+  });
+  if (changed) saveAgenda();
+}
+$("alertClose").onclick = () => { $("alertBar").hidden = true; };
+paintVoice(); setInterval(checkAlerts, 15000); checkAlerts();
+
+/* ---------- Asistente (local) ---------- */
+function addMsg(who, text) { const m = mk("div", text, "msg " + who); $("chat").appendChild(m); m.scrollIntoView({ block: "nearest" }); return m; }
+function summarizeRow(r) { return headers.slice(0, 4).map(h => r[h]).filter(Boolean).join(" | ") || "Registro #" + (rows.indexOf(r) + 1); }
+
+function runAssistantCommand(raw) {
+  const qText = String(raw || "").trim(), nq = norm(qText);
+  if (!nq) return "Escribí una consulta o pedido.";
+
+  const addM = nq.match(/^(anota|agrega|recorda|agenda)\b/);
+  if (addM) {
+    const tm = qText.match(/\b([01]?\d|2[0-3]):([0-5]\d)\b/);
+    const time = tm ? pad(Number(tm[1])) + ":" + tm[2] : "";
+    const d = new Date();
+    if (/pasado\s+ma[nñ]ana/i.test(qText)) d.setDate(d.getDate() + 2);
+    else if (/ma[nñ]ana/i.test(qText)) d.setDate(d.getDate() + 1);
+    const dateStr = keyOf(d.getFullYear(), d.getMonth(), d.getDate());
+    let t = qText.replace(/^\s*\S+\s*/, "")
+      .replace(/^(para\s+)?(pasado\s+ma[nñ]ana|ma[nñ]ana|hoy)\b\s*/i, "")
+      .replace(/^(a\s+las\s+)?([01]?\d|2[0-3]):[0-5]\d\s*(hs?\.?)?\s*[:,\-–]?\s*/i, "")
+      .replace(/^(para\s+)?(pasado\s+ma[nñ]ana|ma[nñ]ana|hoy)\b\s*/i, "")
+      .trim();
+    if (!t) t = qText;
+    agenda.push({ id: Date.now(), date: dateStr, time, text: t, done: false, notified: false });
+    saveAgenda(); if (!$("v-calendario").hidden) buildCalendar();
+    return "Pendiente anotado para " + fmtShort(dateStr) + (time ? " a las " + time : "") + ": " + t;
+  }
+
+  const stCol = getStatusCol();
+  const openAgenda = agenda.filter(a => !a.done).sort((a, b) => (a.date + (a.time || "")).localeCompare(b.date + (b.time || "")));
+  const pendRows = stCol ? rows.filter(r => !isDone(r[stCol])) : [];
+
+  if (/\bpendientes?\b|\bpor hacer\b|\bfalta(n)?\b/.test(nq)) {
+    const lines = [];
+    if (!stCol && !rows.length) lines.push("• Tabla: sin datos cargados.");
+    else if (!stCol) lines.push("• Tabla: no detecté una columna de estado/resolución para identificar pendientes.");
+    else if (pendRows.length) {
+      lines.push("• Registros pendientes en tabla: " + pendRows.length);
+      pendRows.slice(0, 6).forEach(r => lines.push("   - " + summarizeRow(r)));
+      if (pendRows.length > 6) lines.push("   - (y " + (pendRows.length - 6) + " más)");
+    } else lines.push("• Registros pendientes en tabla: ninguno (0).");
+    if (openAgenda.length) {
+      lines.push("• Tareas pendientes en calendario: " + openAgenda.length);
+      openAgenda.slice(0, 8).forEach(a => lines.push("   - " + fmtShort(a.date) + (a.time ? " " + a.time : "") + " — " + a.text));
+      if (openAgenda.length > 8) lines.push("   - (y " + (openAgenda.length - 8) + " más)");
+    } else lines.push("• Tareas pendientes en calendario: ninguna (0).");
+    const tot = pendRows.length + openAgenda.length;
+    return (tot > 0 ? "Sí, tenés " + tot + " pendiente(s) en total:" : "No tenés pendientes en este momento.") + "\n" + lines.join("\n");
+  }
+
+  if (/\brealizad[oa]s?\b|\bresuelt[oa]s?\b|\bhech[oa]s?\b|\bcompletad[oa]s?\b|\bterminad[oa]s?\b|\bsolucionad[oa]s?\b/.test(nq)) {
+    if (!rows.length) return "Todavía no hay registros cargados.";
+    if (!stCol) return "No encontré una columna de estado o resolución en tus datos para contar realizados.";
+    const terms = nq
+      .replace(/\b(cuantos|cuantas|tengo|hay|en|total|de|del|la|las|el|los|un|una|unos|unas|servicios?|trabajos?|equipos?|realizad[oa]s?|resuelt[oa]s?|hech[oa]s?|completad[oa]s?|terminad[oa]s?|solucionad[oa]s?)\b/g, " ")
+      .replace(/\?+/g, " ").split(/\s+/).filter(w => w.length > 1);
+    const doneAll = rows.filter(r => isDone(r[stCol]));
+    if (terms.length) {
+      const label = terms.join(" ");
+      const m = doneAll.filter(r => { const hay = norm(Object.values(r).join(" ")); return terms.every(w => hay.includes(w)); });
+      if (!m.length) return "Tenés 0 realizados que coincidan con '" + label + "' (total realizados: " + doneAll.length + " de " + rows.length + ").";
+      return "Tenés " + m.length + " realizado(s) para '" + label + "' (de " + doneAll.length + " realizados en total):\n" + m.slice(0, 6).map(r => "• " + summarizeRow(r)).join("\n");
+    }
+    const kindCol = headers.find(h => /equipo|servicio|tipo|categoria|asunto/.test(norm(h)));
+    let breakdown = "";
+    if (kindCol && doneAll.length) {
+      const map = new Map();
+      doneAll.forEach(r => { const k = canon(kindCol, r[kindCol]) || "Sin especificar"; map.set(k, (map.get(k) || 0) + 1); });
+      breakdown = "\nPor " + kindCol + ":\n" + [...map].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([k, v]) => "• " + k + ": " + v).join("\n");
+    }
+    return "Tenés " + doneAll.length + " realizado(s) en total (sobre " + rows.length + " registrados)." + breakdown;
+  }
+
+  if (/\bagenda\b|\bcalendario\b/.test(nq)) {
+    if (!openAgenda.length) return "No tenés pendientes abiertos en el calendario.";
+    return "Pendientes en calendario (" + openAgenda.length + "):\n" + openAgenda.slice(0, 15).map(a => "• " + fmtShort(a.date) + (a.time ? " " + a.time : "") + " — " + a.text).join("\n");
+  }
+
+  if (!rows.length) return "Todavía no hay registros cargados.";
+
+  if (/^(contar|agrupar|resumen)\b/.test(nq)) {
+    const colMatch = headers.find(h => nq.includes(norm(h))) || stCol || headers[0];
+    const counts = new Map();
+    rows.forEach(r => { const k = canon(colMatch, r[colMatch]) || "(vacío)"; counts.set(k, (counts.get(k) || 0) + 1); });
+    return "Conteo por '" + colMatch + "' (total " + rows.length + "):\n" + [...counts].sort((a, b) => b[1] - a[1]).slice(0, 20).map(([k, v]) => "• " + k + ": " + v).join("\n");
+  }
+
+  const cleaned = nq.replace(/^(cuantos|buscar|busca|mostrar|mostra|ver|filtrar|filtra)\s+(servicios?\s+(de|para|con|que\s+tenga)?\s*)?/i, "").replace(/\?+$/, "").trim();
+  const words = cleaned.split(/\s+/).filter(w => w.length > 1);
+  const hits = !words.length ? rows : rows.filter(r => { const hay = norm(Object.values(r).join(" ")); return words.every(w => hay.includes(w)); });
+  if (!hits.length) return "No encontré registros que coincidan con '" + (cleaned || qText) + "'.";
+  return "Encontré " + hits.length + " registro(s)" + (cleaned ? " para '" + cleaned + "'" : "") + ":\n" + hits.slice(0, 8).map(r => "• " + summarizeRow(r)).join("\n") + (hits.length > 8 ? "\n(y " + (hits.length - 8) + " más)" : "");
+}
+function sendAssistant() {
+  const text = $("asIn").value.trim(); if (!text) return;
+  addMsg("me", text); $("asIn").value = ""; addMsg("bot", runAssistantCommand(text));
+}
+$("asSend").onclick = sendAssistant;
+$("asIn").onkeydown = e => { if (e.key === "Enter") sendAssistant(); };
+
+const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (SpeechRec) {
+  const rec = new SpeechRec(); rec.lang = "es-ES"; rec.interimResults = false;
+  let listening = false;
+  $("asMic").hidden = false;
+  $("asMic").onclick = () => { try { if (listening) rec.stop(); else rec.start(); } catch (e) {} };
+  rec.onstart = () => { listening = true; $("asMic").textContent = "⏹"; };
+  rec.onend = () => { listening = false; $("asMic").textContent = "🎤"; };
+  rec.onresult = e => { const spoken = e.results?.[0]?.[0]?.transcript || ""; if (spoken) $("asIn").value = ($("asIn").value + " " + spoken).trim(); };
+}
+addMsg("bot", "Listo. Preguntame si tenés pendientes, cuántos servicios tenés realizados (en general o por servicio/equipo), buscá registros o anotá un pendiente.");
+
+/* ---------- Arranque ---------- */
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+  if (saved && saved.datasets) {
+    ["servicios", "demos"].forEach(k => {
+      const x = saved.datasets[k] || {};
+      datasets[k] = { headers: x.headers || [], rows: x.rows || [], added: x.added || 0, source: x.source };
+    });
+    /* Limpieza: borra las 4 filas de ejemplo que traía la versión anterior en Demos */
+    const demo = new Set(["1042|comercial el sol", "1043|balanza central", "1044|ferreteria norte", "1045|autoservicio sur"]);
+    const dd = datasets.demos, before = dd.rows.length;
+    dd.rows = dd.rows.filter((r, i) => !(demo.has(norm(r.Numero) + "|" + norm(r.Cliente)) && dd.headers.includes("Detalle")));
+    if (dd.rows.length !== before) { dd.added = 0; if (!dd.rows.length) dd.headers = []; }
+    if (saved.cur && datasets[saved.cur]) cur = saved.cur;
+  }
+} catch (e) {}
+$("ds").value = cur;
+$("gsUrl").value = storedGsUrl(cur); paintGsPlaceholder();
+({ headers, rows, added } = datasets[cur]);
+showApp();
+if (datasets[cur].source) $("loadMsg").textContent = "Origen de los datos: " + datasets[cur].source;
+["servicios", "demos"].forEach(k => { if (getGsUrl(k)) loadFromGoogleSheets(true, k); });
+</script>
+</body>
+</html>
